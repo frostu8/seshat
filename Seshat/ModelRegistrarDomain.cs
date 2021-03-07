@@ -41,14 +41,25 @@ namespace Seshat {
         }
 
         /// <summary>
-        /// Returns a list of models that satisfy a predicate.
+        /// Attempts to put a collection of models into the domain.
+        /// </summary>
+        /// <param name="collection">A enumerable of models to put.</param>
+        /// <param name="idSelector">Returns the id of an input model.</param>
+        public void AddAll(IEnumerable<T> collection, Func<T, int> idSelector)
+        {
+            foreach (T model in collection)
+                _models.Add(idSelector(model), model);
+        }
+
+        /// <summary>
+        /// Returns an enumerable of models that satisfy a predicate.
         /// </summary>
         public IEnumerable<T> Select(Func<T, Boolean> predicate) {
             return _models.Values.Where(predicate);
         }
 
         /// <summary>
-        /// Returns a list of all models.
+        /// Returns an enumerable of all models.
         /// </summary>
         public IEnumerable<T> SelectAll()
         {
