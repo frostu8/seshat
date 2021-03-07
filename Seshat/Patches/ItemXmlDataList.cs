@@ -4,9 +4,8 @@ using LOR_DiceSystem;
 using MonoMod;
 using Seshat.API;
 
-[MonoModPatch("ItemXmlDataList")]
 [MonoModNoNew]
-public class ItemXmlDataList
+class patch_ItemXmlDataList
 {
     // disable unused field warnings, we know what we're doing!
 #pragma warning disable CS0169, IDE0051, IDE0044
