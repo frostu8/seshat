@@ -77,7 +77,7 @@ namespace Seshat {
         /// </summary>
         public ModelRegistrarDomain<T> GetMainDomain()
         {
-            return GetDomain(MainDomain);
+            return GetOrAddDomain(MainDomain);
         }
 
         /// <summary>
