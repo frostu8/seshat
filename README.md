@@ -27,8 +27,8 @@ contributors to focus more on improving the mod loader than updating it to the
 newest game version.
 
 ## BaseMod Compatability
-While not a priority yet, as Seshat is in its infantile stages, there is high
-priority plans to introduce BaseMod compatability, either through a
+While not a priority yet, as Seshat is in its infantile stages, there is plans 
+to introduce BaseMod compatability, either through a
 [BaseMod compiler](#seshatcompiler) or an entire BaseMod compatability layer.
 
 # Seshat.Compiler
