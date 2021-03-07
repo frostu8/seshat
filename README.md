@@ -29,7 +29,7 @@ newest game version.
 ## BaseMod Compatability
 While not a priority yet, as Seshat is in its infantile stages, there is high
 priority plans to introduce BaseMod compatability, either through a
-[BaseMod compiler](#seshat-compiler) or an entire BaseMod compatability layer.
+[BaseMod compiler](#seshatcompiler) or an entire BaseMod compatability layer.
 
 # Seshat.Compiler
 Seshat is planned to use DLLs exclusively for mods. This keeps things simple,
