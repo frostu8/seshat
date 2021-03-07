@@ -67,6 +67,7 @@
     <Compile Include="ModelRegistrarDomain.cs" />
     <Compile Include="Patches\ItemXmlDataList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
