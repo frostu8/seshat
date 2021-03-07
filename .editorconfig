@@ -71,3 +71,5 @@ dotnet_style_qualification_for_method = false:suggestion
 
 [*]
 guidelines = 80
+
+end_of_line = lf
