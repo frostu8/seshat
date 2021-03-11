@@ -17,6 +17,19 @@ sourcing Seshat's codebase on Github allows people to create issues and
 contribute directly to the code with pull requests. The mods are created by the 
 community, so why shouldn't the mod loader be?
 
+## New API
+Seshat bundles with a featureful and complete API to increase interopability
+between mods and relieve the load off of mod makers, an API that was also not
+able to be written in Harmony patches alone. Seshat's API exposes methods for:
+
+* Fetching and modifying combat pages, key pages, E.G.O. gifts and other items
+represented by IDs.
+* Adding custom characters, backgrounds and audio clips for story sequences.
+* Extending `BattleUnitBuf`, `DiceCardAbility` and `DiceCardSelfAbility` to
+create custom abilities, and being able to add them with a declarative syntax.
+* Loading custom artwork at runtime.
+* Patching game methods with Harmony.
+
 ## MonoMod
 The use of 0x0ade's tool MonoMod essentially future-proofs Seshat from game 
 updates. MonoMod allows users to install older versions of Seshat on newer 
