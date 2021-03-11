@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Seshat {
     /// <summary>
@@ -10,91 +11,62 @@ namespace Seshat {
     /// clashes and other nonsense.
     /// </para>
     /// </summary>
-    public class ModelRegistrar<T> {
+    public class ModelRegistrar<T> where T: class {
         /// <summary>
         /// The domain that contains all vanilla items.
         /// </summary>
         public const string MainDomain = "com.projectmoon.libraryofruina";
 
-        private Dictionary<string, ModelRegistrarDomain<T>> _domains = 
-            new Dictionary<string, ModelRegistrarDomain<T>>();
+        private Dictionary<string, T> _models = new Dictionary<string, T>();
 
         /// <summary>
-        /// Attempts to get the item with the specified `id` from the 
-        /// MainDomain.
+        /// Gets a model by its string ID.
         /// </summary>
-        /// <inheritdoc cref="Get(string, int)"/>
-        public T Get(int id) {
-            return Get(MainDomain, id);
-        }
-
-        /// <summary>
-        /// Attempts to get the item with the specified `id` from the specified
-        /// `domainId`.
-        /// </summary>
-        /// <exception cref="KeyNotFoundException">
-        /// The item with `id` does not exist in the specified `domainId`.
-        /// </exception>
-        public T Get(string domainId, int id) {
-            if (_domains.TryGetValue(domainId, out var domain)) {
-                // we found a domain, so get model and return
-                if (domain.TryGet(id, out T model)) {
-                    // we found it! return.
-                    return model;
-                }
-            }
-
-            // throw verbose exception if we couldn't find it.
-            throw new KeyNotFoundException($"model not found: {domainId}:{id}");
-        }
-
-        /// <inheritdoc cref="ModelRegistrarDomain{T}.Add(int, T)"/>
-        public void Add(string domainId, int id, T model) {
-            GetOrAddDomain(domainId).Add(id, model);
-        }
-
-        /// <summary>
-        /// Attempts to add an item with the specified `id` to the MainDomain.
-        /// </summary>
-        /// <inheritdoc cref="Add(string, int, T)"/>
-        public void Add(int id, T model)
+        /// <param name="sid">The string id of the model.</param>
+        /// <returns>
+        /// The model, or null if no matching model could be found.
+        /// </returns>
+        public T Get(string sid)
         {
-            Add(MainDomain, id, model);
+            return _models.TryGetValue(sid, out T value) ? value : null;
         }
 
         /// <summary>
-        /// Attempts to get the domain at `domainId`.
+        /// Adds a new model to the registrar.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">
-        /// The domain does not exist.
+        /// <param name="sid">The string id of the model.</param>
+        /// <param name="model">The model.</param>
+        /// <exception cref="System.ArgumentException">
+        /// A model with the specified string ID already exists.
         /// </exception>
-        public ModelRegistrarDomain<T> GetDomain(string domainId) {
-            return _domains[domainId];
-        }
-
-        /// <summary>
-        /// Gets the MainDomain, or creates it if it does not exist.
-        /// </summary>
-        public ModelRegistrarDomain<T> GetMainDomain()
+        public void Add(string sid, T model)
         {
-            return GetOrAddDomain(MainDomain);
+            _models.Add(sid, model);
         }
 
         /// <summary>
-        /// An unfailable version of `GetDomain` that simply creates the domain 
-        /// if it does not exist already.
+        /// Gets all models in a domain.
         /// </summary>
-        public ModelRegistrarDomain<T> GetOrAddDomain(string domainId) {
-            ModelRegistrarDomain<T> domain;
+        /// <param name="domain">The domain.</param>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of all models in the domain.
+        /// </returns>
+        public IEnumerable<T> ByDomain(string domain)
+        {
+            return _models
+                .Where(kvp => StringId.InDomain(kvp.Key, domain))
+                .Select(kvp => kvp.Value);
+        }
 
-            if (!_domains.TryGetValue(domainId, out domain)) {
-                // we weren't able to find the domain!
-                // make a domain
-                domain = new ModelRegistrarDomain<T>();
-                _domains.Add(domainId, domain);
-            }
-
-            return domain;
+        /// <summary>
+        /// Gets all models in the registrar.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> of all models in the domain.
+        /// </returns>
+        public IEnumerable<T> All()
+        {
+            return _models.Values;
         }
     }
 }

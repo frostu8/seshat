@@ -104,7 +104,21 @@ namespace Seshat
         /// </returns>
         public static bool SameDomain(string sid, string otherSid)
         {
-            return GetDomain(sid).Equals(GetDomain(otherSid));
+            return InDomain(sid, GetDomain(otherSid));
+        }
+
+        /// <summary>
+        /// Checks if an sid is in the specified domain.
+        /// </summary>
+        /// <param name="sid">A fully-qualified string ID.</param>
+        /// <param name="domain">A domain.</param>
+        /// <returns>
+        /// <c>true</c> if the specified ID is in the domain; otherwise
+        /// <c>false</c>.
+        /// </returns>
+        public static bool InDomain(string sid, string domain)
+        {
+            return GetDomain(sid).Equals(domain);
         }
     }
 }
