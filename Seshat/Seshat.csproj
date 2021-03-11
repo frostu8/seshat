@@ -65,8 +65,13 @@
   <ItemGroup>
     <Compile Include="API\DiceCardRegistrar.cs" />
     <Compile Include="ModelRegistrar.cs" />
+    <Compile Include="Module\BaseModInteropModule.cs" />
+    <Compile Include="Module\NullModule.cs" />
+    <Compile Include="Module\SeshatModule.cs" />
     <Compile Include="Patches\ItemXmlDataList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Module\SeshatModuleMetadata.cs" />
+    <Compile Include="Seshat.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="StringId.cs" />
   </ItemGroup>
