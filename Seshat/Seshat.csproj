@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\DiceCardRegistrar.cs" />
-    <Compile Include="DuplicateModException.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="ModelRegistrar.cs" />
     <Compile Include="Module\BaseModInteropModule.cs" />
     <Compile Include="Module\NullModule.cs" />

@@ -30,6 +30,11 @@ namespace Seshat.Module
             this.id = id;
         }
 
+        public override string ToString()
+        {
+            return $"{this.id}";
+        }
+
         #region SERIALIZATION
 
         internal class MetadataFormatException : Exception {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Seshat
@@ -26,7 +27,13 @@ namespace Seshat
 
         public Stream GetFile(string path)
         {
-            return File.OpenRead(Absolute(path));
+            try { return File.OpenRead(Absolute(path)); }
+            catch (FileNotFoundException) { return null;  }
+        }
+
+        public Assembly LoadAssembly(string path)
+        {
+            return Assembly.LoadFile(Absolute(path));
         }
 
         public string[] GetFiles(string path)

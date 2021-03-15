@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using Seshat.Module;
 using UnityEngine;
 
@@ -14,14 +18,14 @@ namespace Seshat
         /// <summary>
         /// Loads all mods from the <see cref="SeshatLoader.ModsPath"/>.
         /// </summary>
-        public static void LoadAuto()
+        internal static void LoadAuto()
             => LoadAll(ModsPath);
 
         /// <summary>
         /// Loads all mods from a directory.
         /// </summary>
         /// <param name="modsPath">The absolute path of the directory of mods.</param>
-        public static void LoadAll(string modsPath)
+        internal static void LoadAll(string modsPath)
         {
             DirectoryInfo modsDir = new DirectoryInfo(modsPath);
 
@@ -31,11 +35,10 @@ namespace Seshat
             foreach (var dir in modsDir.GetDirectories())
             {
                 try { LoadMod(dir.FullName); }
-                catch (Exception e)
+                catch (Exception e) 
                 {
-                    // print exception details
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(e.StackTrace);
+                    Logger.Error("loader", "An error occured during mod loading!");
+                    e.LogException();
                 }
             }
         }
@@ -44,7 +47,7 @@ namespace Seshat
         /// Loads a mod from the filesystem.
         /// </summary>
         /// <param name="path">The absolute path of the mod to load.</param>
-        public static void LoadMod(string path)
+        internal static void LoadMod(string path)
         {
             // check if the directory exists
             if (!Directory.Exists(path))
@@ -71,17 +74,85 @@ namespace Seshat
                 new StreamReader(bundle.GetFile(ModMetaFile)));
 
             foreach (var meta in metas)
-            {
-                // exit early if the mod has a duplicate id
-                if (Seshat.HasId(meta.id))
-                    throw new DuplicateModException(meta.id);
+                LoadSeshatMeta(bundle, meta);
+        }
 
-                // find dll
-                if (meta.dll == null)
+        private static void LoadSeshatMeta(SeshatBundle bundle, SeshatModuleMetadata meta)
+        {
+            // exit early if the mod has a duplicate id
+            if (Seshat.HasId(meta.id))
+            {
+                Logger.Error("loader", $"Mod {meta} has a conflicting id!");
+                return;
+            }
+
+            // find dll
+            if (meta.dll == null)
+            {
+                // register null module if a dll couldn't be found
+                new NullModule(meta).Register();
+                return;
+            }
+
+            // attempt to load assembly
+            Assembly asm;
+            try 
+            {
+                asm = bundle.LoadAssembly(meta.dll);
+            } 
+            catch (Exception e) 
+            {
+                Logger.Error("loader", $"Failed to load assembly {meta.dll} of mod {meta}");
+                e.LogException();
+                return;
+            }
+
+            LoadSeshatAssembly(meta, asm);
+        }
+
+        private static void LoadSeshatAssembly(SeshatModuleMetadata meta, Assembly asm)
+        {
+            Type[] types;
+            try
+            {
+                types = GetTypesSafe(asm);
+            }
+            catch (Exception e)
+            {
+                Logger.Error("loader", $"Failed reading assembly of mod {meta}");
+                e.LogException();
+                return;
+            }
+
+           
+            foreach (Type type in types)
+            {
+                if (typeof(SeshatModule).IsAssignableFrom(type)
+                    && !type.IsAbstract 
+                    && !typeof(NullModule).IsAssignableFrom(type))
                 {
-                    // register null module if a dll couldn't be found
-                    new NullModule(meta).Register();
+                    Logger.Debug("loader", $"Loading type {type.FullName} from {asm.FullName} in {meta}");
+                    SeshatModule mod = (SeshatModule)Activator.CreateInstance(type);
+                    mod.Metadata = meta;
+                    mod.Register();
                 }
+            }
+        }
+        private static Type[] GetTypesSafe(Assembly asm)
+        {
+            try
+            {
+                return asm.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                foreach (var ex in e.LoaderExceptions)
+                {
+                    Logger.Error("loader", $"Failed to load some types in assembly {asm.FullName}.");
+                    ex.LogException();
+                }
+
+                return e.Types.Where(t => t != null).ToArray();
             }
         }
     }
