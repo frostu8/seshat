@@ -7,17 +7,20 @@ namespace Seshat.Module
     /// </summary>
     internal class BaseModInteropModule : SeshatModule
     {
-        private Type _patchType;
+        private Type[] _patches;
 
-        public BaseModInteropModule(SeshatModuleMetadata metadata, Type patchType)
+        public BaseModInteropModule(SeshatModuleMetadata metadata, Type[] patches)
         {
             this.Metadata = metadata;
-            this._patchType = patchType;
+            this._patches = patches;
         }
 
         public override void Load()
         {
-            Activator.CreateInstance(this._patchType);
+            foreach (Type patch in this._patches)
+            {
+                Activator.CreateInstance(patch);
+            }
         }
 
         public override void Unload() { }

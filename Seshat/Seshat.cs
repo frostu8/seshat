@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using Seshat.Module;
 
 namespace Seshat
@@ -24,5 +26,8 @@ namespace Seshat
             // call module's initialize function after all types were checked
             module.Initialize();
         }
+
+        internal static bool HasId(string id)
+            => _modules.Any(mod => mod.Metadata.id == id);
     }
 }

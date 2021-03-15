@@ -5,6 +5,11 @@
     /// </summary>
     internal class NullModule : SeshatModule
     {
+        public NullModule(SeshatModuleMetadata meta)
+        {
+            this.Metadata = meta;
+        }
+
         public override void Load() { }
         public override void Unload() { }
     }
