@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Seshat
+namespace Seshat.API
 {
     /// <summary>
     /// Helper functions to interact with Seshat string IDs.

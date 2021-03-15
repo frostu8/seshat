@@ -82,7 +82,7 @@
     <Compile Include="SeshatBundle.cs" />
     <Compile Include="SeshatLoader.cs" />
     <Compile Include="Singleton.cs" />
-    <Compile Include="StringId.cs" />
+    <Compile Include="API\StringId.cs" />
     <Compile Include="Tommy.cs" />
   </ItemGroup>
   <ItemGroup>
