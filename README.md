@@ -41,13 +41,5 @@ newest game version.
 
 ## BaseMod Compatability
 While not a priority yet, as Seshat is in its infantile stages, there is plans 
-to introduce BaseMod compatability, either through a
-[BaseMod compiler](#seshatcompiler) or an entire BaseMod compatability layer.
+to introduce BaseMod compatability through a compatability layer.
 
-# Seshat.Compiler
-Seshat is planned to use DLLs exclusively for mods. This keeps things simple,
-but it adds a layer of complexity to mods, especially to those who do not know
-C# programming.
-
-Seshat will ship with a compiler that can automatically write a mod assembly
-based on a simple directory tree and human-readable files.
