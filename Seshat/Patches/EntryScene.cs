@@ -3,12 +3,12 @@
 
 using Seshat;
 
-class patch_GlobalGameManager : GlobalGameManager
+class patch_EntryScene : EntryScene
 {
-    public extern void orig_Init();
-    public new void Init()
+    public extern void orig_Awake();
+    public new void Awake()
     {
         SeshatLoader.LoadAuto();
-        orig_Init();
+        orig_Awake();
     }
 }

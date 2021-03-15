@@ -75,7 +75,7 @@
     <Compile Include="Module\BaseModInteropModule.cs" />
     <Compile Include="Module\NullModule.cs" />
     <Compile Include="Module\SeshatModule.cs" />
-    <Compile Include="Patches\GlobalGameManager.cs" />
+    <Compile Include="Patches\EntryScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Module\SeshatModuleMetadata.cs" />
     <Compile Include="Seshat.cs" />
