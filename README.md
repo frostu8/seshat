@@ -48,21 +48,18 @@ Clone this repository locally on your computer. Install the needed NuGet
 packages (this should be done automatically on the first load of the project in
 Visual Studio), and that's it.
 
-MonoMod's provided installer is rather limited, so there is a install script
-provided called `install.ps1`, which is automatically copied to the build
-directory when you build the project. Run this script with PowerShell in the
-build directory:
+MonoMod's provided installer is rather limited, so I've written my own
+installer for Seshat, dubly named
+[Seshat.Installer](https://github.com/frostu8/Seshat.Installer/releases/latest).
+It's a single file, and as long as you have .NET Framework 4.6.1 installed,
+it should work perfectly fine:
 
-```ps1
-PowerShell.exe -ExecutionPolicy Unrestricted -File install.ps1
+```bash
+.\Seshat.Installer.exe <seshat.dll>
 
 # if your Library of Ruina installation directory is unable to be found:
-PowerShell.exe -ExecutionPolicy Unrestricted -File install.ps1 <lor install directory>
+.\Seshat.Installer.exe -i <lor install directory> <seshat.dll>
 ```
-
-If you don't want to type such a long command, you can set your computer's
-[execution policy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1)
-so you can simply run the file from explorer or run it with `.\install.ps1`.
 
 The dependencies `Assembly-CSharp.dll` and `UnityEngine.CoreModule.dll` are
 both provided in this repository as stripped libraries. They work pretty well
