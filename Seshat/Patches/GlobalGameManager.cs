@@ -17,5 +17,8 @@ class patch_GlobalGameManager : GlobalGameManager
         orig_OnApplicationQuit();
         // run unload for all modules
         Seshat.Seshat.RunUnload();
+
+        // release logger resources
+        Seshat.Logger.CloseLogFile();
     }
 }

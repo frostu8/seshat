@@ -8,6 +8,9 @@ class patch_EntryScene : EntryScene
     public extern void orig_Awake();
     public new void Awake()
     {
+        // open log file
+        // should this be moved to a static constructor? - frost
+        Logger.OpenLogFile();
         SeshatLoader.LoadAuto();
         orig_Awake();
     }

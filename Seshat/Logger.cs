@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using UnityEngine;
 
 namespace Seshat
 {
     public static class Logger
     {
+        private static StreamWriter _logFile;
+
         public enum LogLevel
         {
             Error,
@@ -18,21 +21,24 @@ namespace Seshat
 
         public static void Log(LogLevel level, string tag, string message)
         {
-            Console.Write("[");
-            Console.Write(LevelToString(level));
-            Console.Write("] [");
-            Console.Write(tag);
-            Console.Write("] ");
-            Console.WriteLine(message);
+            
+            _logFile.Write("[");
+            _logFile.Write(LevelToString(level));
+            _logFile.Write("] [");
+            _logFile.Write(tag);
+            _logFile.Write("] ");
+            _logFile.WriteLine(message);
+            _logFile.Flush();
         }
 
         public static void LogException(this Exception e)
         {
-            Console.Write(e.GetType().FullName);
-            Console.Write(": ");
-            Console.WriteLine(e.Message);
+            _logFile.Write(e.GetType().FullName);
+            _logFile.Write(": ");
+            _logFile.WriteLine(e.Message);
 
-            Console.WriteLine(e.StackTrace);
+            _logFile.WriteLine(e.StackTrace);
+            _logFile.Flush();
         }
 
         public static void Error(string tag, string message)
@@ -43,6 +49,21 @@ namespace Seshat
             => Log(LogLevel.Info, tag, message);
         public static void Debug(string tag, string message)
             => Log(LogLevel.Debug, tag, message);
+
+        internal static void OpenLogFile()
+            => OpenLogFile(Path.Combine(Path.GetDirectoryName(Application.consoleLogPath), "ModLog.log"));
+
+        internal static void OpenLogFile(string file)
+        {
+            FileStream logFile = new FileStream(file, FileMode.Create);
+            _logFile = new StreamWriter(logFile);
+        }
+
+        internal static void CloseLogFile()
+        {
+            _logFile.Dispose();
+            _logFile = null;
+        }
 
         private static string LevelToString(LogLevel level)
         {
