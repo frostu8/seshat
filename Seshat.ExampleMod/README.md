@@ -1,6 +1,6 @@
 # Example Mod
 This project is an example mod. Seshat has no publicly exposed API, so the mod
-currently does absolutely nothing besides make an entry in the `Player.log`
+currently does absolutely nothing besides make an entry in the `ModLog.log`
 file, which you can find in `%APPDATA\..\LocalLow\Project Moon\LibraryOfRuina`.
 
 ## `seshat.toml`
