@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,18 @@ namespace Seshat
 {
     public static class Seshat
     {
+        /// <summary>
+        /// The version of Seshat being run.
+        /// </summary>
+        public static Version Version
+        {
+            get
+            {
+                return new Version(VersionString);
+            }
+        }
+        public const string VersionString = "0.1.0.0";
+
         /// <summary>
         /// All modules loaded by Seshat.
         /// </summary>
