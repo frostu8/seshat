@@ -55,6 +55,9 @@ build directory:
 
 ```ps1
 PowerShell.exe -ExecutionPolicy Unrestricted -File install.ps1
+
+# if your Library of Ruina installation directory is unable to be found:
+PowerShell.exe -ExecutionPolicy Unrestricted -File install.ps1 <lor install directory>
 ```
 
 If you don't want to type such a long command, you can set your computer's
