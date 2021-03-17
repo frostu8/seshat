@@ -86,6 +86,9 @@
     <Compile Include="Tommy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="install.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
