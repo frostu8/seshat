@@ -1,0 +1,9 @@
+﻿# the mod's id
+["com.seshat.example.mod"]
+# a human-readable name for the mod; used to display the mod to users.
+name = "Example Mod"
+# the mod's assembly; any SeshatModules inside this assembly are loaded.
+# Only one SeshatModule can exist per-assembly. You will get a mod conflict
+# error if you try to define two SeshatModules in the same assembly (unless you
+# override SeshatModule.Metadata)
+dll = "Seshat.ExampleMod.dll"
