@@ -1,8 +1,17 @@
-﻿$MonoModPath="$(Get-Location)\MonoMod.exe"
+﻿$ErrorActionPreference="Stop"
+
+$MonoModPath="$(Get-Location)\MonoMod.exe"
 $OldPwd=Get-Location
 
 # lor bindings
 $LorBinaryPath=$args[0]
+
+if (-not($LorBinaryPath)) {
+    $LorBinaryPath="C:\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Assembly-CSharp.dll"
+    Write-Host "No path specified; using default path:"
+    Write-Host "    $LorBinaryPath"
+}
+
 $LorBinaryBasePath=Split-Path $LorBinaryPath
 $LorBinaryFilename=Split-Path $LorBinaryPath -Leaf
 
@@ -11,7 +20,7 @@ $SeshatBinaryPath=$args[1]
 
 if (-not($SeshatBinaryPath)) { $SeshatBinaryPath="$(Get-Location)\Seshat.dll" }
 
-$LorBinaryBackupPath="$LorBinaryPath.bak"
+$SeshatLorModPath="$($LorBinaryFilename.Substring(0, $LorBinaryFilename.Length - 4)).mm.dll"
 
 # make sure that this is a dll we are working with!
 if (-not($LorBinaryPath -match ".dll$")) {
@@ -19,6 +28,8 @@ if (-not($LorBinaryPath -match ".dll$")) {
 
     exit 1
 }
+
+$LorBinaryBackupPath="$LorBinaryPath.bak"
 
 # Undo backup
 
@@ -38,8 +49,7 @@ Copy-Item $LorBinaryPath -Destination $LorBinaryBackupPath
 
 Write-Host "Copying Seshat binary to $LorBinaryBasePath..."
 
-
-Copy-Item $SeshatBinaryPath -Destination "$LorBinaryBasePath\$SeshatMonoModFilename"
+Copy-Item $SeshatBinaryPath -Destination "$LorBinaryBasePath\$SeshatLorModPath"
 
 # Write modification
 
@@ -61,10 +71,13 @@ Copy-Item "$LorBinaryBasePath\$LorBinaryModdedFilename" -Destination $LorBinaryP
 
 Get-ChildItem -Path $LorBinaryBasePath -File | ForEach-Object -Process {
     if ($_ -match "^MONOMODDED_") {
-        Write-Output "Cleaning up $_" 
+        Write-Output "Cleaning up $_..." 
         Remove-Item "$LorBinaryBasePath\$_" 
     }
 }
+
+Write-Output "Cleaning up $SeshatLorModPath..."
+Remove-Item $SeshatLorModPath
 
 # finished!
 
