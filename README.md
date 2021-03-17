@@ -43,3 +43,26 @@ newest game version.
 While not a priority yet, as Seshat is in its infantile stages, there is plans 
 to introduce BaseMod compatability through a compatability layer.
 
+# Building
+Clone this repository locally on your computer. Install the needed NuGet
+packages (this should be done automatically on the first load of the project in
+Visual Studio), and that's it.
+
+MonoMod's provided installer is rather limited, so there is a install script
+provided called `install.ps1`, which is automatically copied to the build
+directory when you build the project. Run this script with PowerShell in the
+build directory:
+
+```ps1
+PowerShell.exe -ExecutionPolicy Unrestricted -File install.ps1
+```
+
+If you don't want to type such a long command, you can set your computer's
+[execution policy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.1)
+so you can simply run the file from explorer or run it with `.\install.ps1`.
+
+The dependencies `Assembly-CSharp.dll` and `UnityEngine.CoreModule.dll` are
+both provided in this repository as stripped libraries. They work pretty well
+until there is an update to Library of Ruina, and these assemblies are stale.
+They're not required; you can simply change the dependency paths to the ones
+you have installed on your computer and it will work perfectly fine.
