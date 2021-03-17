@@ -12,18 +12,22 @@ namespace ExampleMod
         /// In the future, key pages/combat pages/xml data will be registered
         /// automatically based on the file structure of the mod.
         public override void Load()
-        { }
+        { 
+            Logger.Info(Metadata.id, $"Load(); called for mod {Metadata.name}");
+        }
 
         /// This function is called to undo any patches or release any unmanaged
         /// resources. Deregistration will be performed automatically.
         public override void Unload()
-        { }
+        { 
+            Logger.Info(Metadata.id, $"Unload(); called for mod {Metadata.name}");
+        }
 
         /// This function is called to initialize any data, like a constructor
         /// would.
         public override void Initialize()
         {
-            Logger.Info(Metadata.id, $"Mod {Metadata.name} successfully loaded!");
+            Logger.Info(Metadata.id, $"Initialize(); called for mod {Metadata.name}");
         }
 
         /// This is the metadata of the module. This can be overriden to

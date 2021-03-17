@@ -14,6 +14,16 @@ namespace Seshat
         public static ReadOnlyCollection<SeshatModule> Modules => _modules.AsReadOnly();
         private static List<SeshatModule> _modules = new List<SeshatModule>();
 
+        internal static void RunLoad()
+        {
+            _modules.ForEach(module => module.Load());
+        }
+
+        internal static void RunUnload()
+        {
+            _modules.ForEach(module => module.Unload());
+        }
+
         /// <summary>
         /// Registers a module to Seshat.
         /// </summary>
@@ -26,6 +36,7 @@ namespace Seshat
             // call module's initialize function after all types were checked
             module.Initialize();
         }
+
 
         internal static bool HasId(string id)
             => _modules.Any(mod => mod.Metadata.id == id);
