@@ -5,7 +5,6 @@ using LOR_DiceSystem;
 using MonoMod;
 using Seshat.API;
 
-[MonoModNoNew]
 class patch_ItemXmlDataList
 {
     // disable unused field warnings, we know what we're doing!
@@ -23,24 +22,30 @@ class patch_ItemXmlDataList
     [MonoModReplace]
     public void InitCardInfo_V2(List<DiceCardXmlInfo> list)
     {
-        throw new NotImplementedException();
+        list.ForEach(card => DiceCardRegistrar.AddVanilla(card.id, card));
     }
 
     [MonoModReplace]
     public List<DiceCardXmlInfo> GetCardList()
     {
-        throw new NotImplementedException();
+        // References to this function are as follows:
+        // CardListViewer.Start();
+        // CardResourceManager.InitializeAllArtworks();
+        // might want to go ahead and just patch them but i'm lazy
+        return DiceCardRegistrar.All().ToList();
     }
 
     [MonoModReplace]
     public List<DiceCardXmlInfo> GetBasicCardList()
     {
-        throw new NotImplementedException();
+        return DiceCardRegistrar.All()
+            .Where(card => card.optionList.Contains(CardOption.Basic))
+            .ToList();
     }
 
     [MonoModReplace]
     public DiceCardXmlInfo GetCardItem(int id)
     {
-        throw new NotImplementedException();
+        return DiceCardRegistrar.Get(id);
     }
 }
