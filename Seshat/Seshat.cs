@@ -29,12 +29,28 @@ namespace Seshat
 
         internal static void RunLoad()
         {
-            _modules.ForEach(module => module.Load());
+            _modules.ForEach(module => {
+                try { module.Load(); }
+                catch (Exception e)
+                {
+                    Logger.Error("seshat", $"Failed to run Load(); callback for mod {module.Metadata}!");
+                    Logger.Error("seshat", "SEE BELOW FOR EXCEPTION DETAILS:");
+                    e.LogException();
+                }
+            });
         }
 
         internal static void RunUnload()
         {
-            _modules.ForEach(module => module.Unload());
+            _modules.ForEach(module => {
+                try { module.Unload(); }
+                catch (Exception e)
+                {
+                    Logger.Error("seshat", $"Failed to run Unload(); callback for mod {module.Metadata}!");
+                    Logger.Error("seshat", "SEE BELOW FOR EXCEPTION DETAILS:");
+                    e.LogException();
+                }
+            });
         }
 
         /// <summary>
