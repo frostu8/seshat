@@ -8,8 +8,8 @@ using System.Runtime.CompilerServices;
 namespace Seshat
 {
     /// <summary>
-    /// A mod bundle, typically representing the entirety of the mod, including
-    /// assemblies and mod content.
+    /// A mod bundle, allowing access to the contents of a mod, and furthermore,
+    /// its metadata and assemblies.
     /// </summary>
     public class SeshatBundle
     {
@@ -22,9 +22,9 @@ namespace Seshat
 
         // Filesystem operation abstractions just in case we need to implement
         // .zip file support later on.
-        public bool FileExists(string path)
+        public bool Exists(string path)
             => File.Exists(Absolute(path));
-
+        
         public Stream GetFile(string path)
         {
             try { return File.OpenRead(Absolute(path)); }
@@ -52,7 +52,7 @@ namespace Seshat
 
         /// <summary>
         /// Crawls a directory in the bundle. <c>callback</c> is called with the
-        /// relative path of the file from the <c>basePath</c>.
+        /// relative path of the file from the <c>root</c>.
         /// </summary>
         public void Crawl(string root, Action<string> callback)
             => CrawlInternal(root, string.Empty, callback);

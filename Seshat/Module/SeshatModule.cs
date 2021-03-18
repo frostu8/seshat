@@ -16,6 +16,12 @@
         public virtual SeshatModuleMetadata Metadata { get; set; }
 
         /// <summary>
+        /// The bundle related to the module. Use this to access mod content.
+        /// </summary>
+        public SeshatBundle Bundle { get { return bundle; } }
+        internal SeshatBundle bundle;
+
+        /// <summary>
         /// Called after the game has loaded all assets, and Seshat has loaded
         /// all other modules.
         /// </summary>

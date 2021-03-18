@@ -56,7 +56,7 @@ namespace Seshat
             SeshatBundle bundle = new SeshatBundle(path);
 
             // check if a seshat.toml exists
-            if (bundle.FileExists(ModMetaFile))
+            if (bundle.Exists(ModMetaFile))
                 LoadSeshatBundle(bundle);
             else
                 LoadBaseMod(bundle);
@@ -90,7 +90,9 @@ namespace Seshat
             if (meta.dll == null)
             {
                 // register null module if a dll couldn't be found
-                new NullModule(meta).Register();
+                NullModule mod = new NullModule(meta);
+                mod.bundle = bundle;
+                mod.Register();
                 return;
             }
 
@@ -107,10 +109,10 @@ namespace Seshat
                 return;
             }
 
-            LoadSeshatAssembly(meta, asm);
+            LoadSeshatAssembly(bundle, meta, asm);
         }
 
-        private static void LoadSeshatAssembly(SeshatModuleMetadata meta, Assembly asm)
+        private static void LoadSeshatAssembly(SeshatBundle bundle, SeshatModuleMetadata meta, Assembly asm)
         {
             Type[] types;
             try
@@ -134,6 +136,7 @@ namespace Seshat
                     Logger.Debug("loader", $"Loading type {type.FullName} from {asm.FullName} in {meta}");
                     SeshatModule mod = (SeshatModule)Activator.CreateInstance(type);
                     mod.Metadata = meta;
+                    mod.bundle = bundle;
                     mod.Register();
                 }
             }

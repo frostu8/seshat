@@ -1,5 +1,6 @@
 ﻿using Seshat.Module;
 using Seshat;
+using System.IO;
 
 namespace ExampleMod
 {
@@ -12,8 +13,11 @@ namespace ExampleMod
         /// In the future, key pages/combat pages/xml data will be registered
         /// automatically based on the file structure of the mod.
         public override void Load()
-        { 
+        {
             Logger.Info(Metadata.id, $"Load(); called for mod {Metadata.name}");
+
+            // print a file!
+            PrintLoremIpsum();
         }
 
         /// This function is called to undo any patches or release any unmanaged
@@ -28,6 +32,21 @@ namespace ExampleMod
         public override void Initialize()
         {
             Logger.Info(Metadata.id, $"Initialize(); called for mod {Metadata.name}");
+        }
+
+        private void PrintLoremIpsum()
+        {
+            using (TextReader l = new StreamReader(this.Bundle.GetFile("LoremIpsum.txt")))
+            {
+                string line = l.ReadLine();
+                while (line != null)
+                {
+                    Logger.Debug(Metadata.id, line);
+
+                    // read another line
+                    line = l.ReadLine();
+                }
+            }
         }
 
         /// This is the metadata of the module. This can be overriden to
