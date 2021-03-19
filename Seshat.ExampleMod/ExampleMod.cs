@@ -17,7 +17,7 @@ namespace ExampleMod
             Logger.Info(Metadata.id, $"Load(); called for mod {Metadata.name}");
 
             // load our custom card
-            this.RegisterCombatPage("/card.xml");
+            this.RegisterCombatPages("card.xml");
         }
 
         /// This function is called to undo any patches or release any unmanaged

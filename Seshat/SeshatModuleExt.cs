@@ -8,42 +8,43 @@ namespace Seshat
 {
     public static class SeshatModuleExt
     {
-        
-        // HELPER FUNCTIONS
-
         /// <summary>
-        /// Registers a combat page to Seshat.
+        /// Registers all combat pages in a bundle to Seshat.
         /// </summary>
-        /// <param name="card">The combat page to register.</param>
+        /// <param name="root">The combat pages to register.</param>
         /// <exception cref="System.ArgumentException">
-        /// The model shares a string id with an already registered card.
+        /// One of the models share a string id with an already registered card.
         /// </exception>
-        public static void RegisterCombatPage(this SeshatModule module, DiceCardXmlInfo card)
+        public static void RegisterCombatPages(this SeshatModule module, DiceCardXmlRoot root)
         {
+            // it is important to do these seperately just in case there is an
+            // error in the xml definitions
             // translate domain
-            card.SetSID(StringId.Concat(module.Metadata.id, card.GetSID()));
+            foreach (var card in root.cardXmlList)
+                card.SetSID(StringId.Concat(module.Metadata.id, card.GetSID()));
 
             // register
-            DiceCardRegistrar.Register(card);
+            foreach (var card in root.cardXmlList)
+                DiceCardRegistrar.Register(card);
         }
 
         /// <summary>
-        /// Registers a combat page to Seshat from a bundle file.
+        /// Registers all combat pages in a bundle to Seshat from a file.
         /// </summary>
         /// <param name="bundlePath">The path of the XML file.</param>
         /// <exception cref="System.ArgumentException">
-        /// The model shares a string id with an already registered card.
+        /// One of the models share a string id with an already registered card.
         /// </exception>
-        public static void RegisterCombatPage(this SeshatModule module, string bundlePath)
+        public static void RegisterCombatPages(this SeshatModule module, string bundlePath)
         {
-            var xml = new XmlSerializer(typeof(DiceCardXmlInfo));
+            var xml = new XmlSerializer(typeof(DiceCardXmlRoot));
 
             using (Stream stream = module.Bundle.GetFile(bundlePath))
             {
                 if (stream == null)
                     throw new System.Exception("Failed to find bundle file!");
 
-                RegisterCombatPage(module, (DiceCardXmlInfo)xml.Deserialize(stream));
+                RegisterCombatPages(module, (DiceCardXmlRoot)xml.Deserialize(stream));
             }
         }
     }

@@ -1,15 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<Card SID="troll_69">
-    <Name>troll</Name>
-    <Artwork>Dawn1</Artwork>
-    <Rarity>Unique</Rarity>
-    <Spec Range="Near" Cost="0" />
-    <Script/>
-    <ScriptDesc/>
-    <BehaviourList>
-		<Behaviour Min="69" Dice="69" Type="Atk" Detail="Penetrate" Motion="H" EffectRes="" Script="" ActionScript="" />
-    </BehaviourList>
-    <Chapter>1</Chapter>
-    <Priority>2</Priority>
-    <SortPriority>1</SortPriority>
-</Card>
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DiceCardXmlRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Card SID="troll_69">
+		<Name>troll</Name>
+		<Artwork>Dawn1</Artwork>
+		<Rarity>Unique</Rarity>
+		<Spec Range="Near" Cost="0" />
+		<Script/>
+		<ScriptDesc/>
+		<BehaviourList>
+			<Behaviour Min="69" Dice="69" Type="Atk" Detail="Penetrate" Motion="H" EffectRes="" Script="" ActionScript="" />
+		</BehaviourList>
+		<Chapter>1</Chapter>
+		<Priority>2</Priority>
+		<SortPriority>1</SortPriority>
+	</Card>
+</DiceCardXmlRoot>
