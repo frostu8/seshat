@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\DiceCardRegistrar.cs" />
+    <Compile Include="IdGen.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ModelRegistrar.cs" />
     <Compile Include="Module\BaseModInteropModule.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Module\SeshatModule.cs" />
     <Compile Include="Patches\EntryScene.cs" />
     <Compile Include="Patches\GlobalGameManager.cs" />
+    <Compile Include="Patches\ItemXmlData.cs" />
     <Compile Include="Patches\ItemXmlDataList.cs" />
     <Compile Include="Patches\VersionViewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="SeshatBundle.cs" />
     <Compile Include="SeshatLoader.cs" />
     <Compile Include="API\StringId.cs" />
+    <Compile Include="SeshatModuleExt.cs" />
     <Compile Include="Tommy.cs" />
   </ItemGroup>
   <ItemGroup>

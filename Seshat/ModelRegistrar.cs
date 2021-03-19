@@ -18,9 +18,9 @@ namespace Seshat {
         /// </summary>
         public const string MainDomain = "com.projectmoon.libraryofruina";
 
-        private static Dictionary<string, T> _models = new Dictionary<string, T>();
+        protected static Dictionary<int, T> _models = new Dictionary<int, T>();
 
-        private static Dictionary<int, WeakReference<T>> _intIdentified = new Dictionary<int, WeakReference<T>>();
+        protected static Dictionary<string, T> _modelsBySid = new Dictionary<string, T>();
 
         /// <summary>
         /// Gets a model by its string ID.
@@ -31,7 +31,7 @@ namespace Seshat {
         /// </returns>
         public static T Get(string sid)
         {
-            return _models.TryGetValue(sid, out T value) ? value : null;
+            return _modelsBySid.TryGetValue(sid, out T value) ? value : null;
         }
 
         /// <summary>
@@ -43,47 +43,21 @@ namespace Seshat {
         /// </returns>
         public static T Get(int id)
         {
-            // don't think we need to remove any weakreferences because if the
-            // dictionary is written properly it shouldn't need that.
-            if (_intIdentified.TryGetValue(id, out WeakReference<T> value))
-                if (value.TryGetTarget(out T target))
-                    return target;
-
-            return null;
+            return _models.TryGetValue(id, out T value) ? value : null;
         }
 
-        /// <summary>
-        /// Adds a new model to the registrar, throwing if a model already
-        /// exists with the same sid.
-        /// </summary>
-        /// <param name="sid">The string id of the model.</param>
-        /// <param name="model">The model.</param>
-        /// <exception cref="System.ArgumentException">
-        /// A model with the specified string ID already exists.
-        /// </exception>
-        public static void Add(string sid, T model)
-        {
-            _models.Add(sid, model);
-        }
-
-        /// <summary>
-        /// Adds a new model to the registrar, providing a integer Id, throwing
-        /// if a model already exists with the same id or sid.
-        /// </summary>
-        /// <param name="sid">The string id of the model.</param>
-        /// <param name="id">The integer id of the model.</param>
-        /// <param name="model">The model.</param>
-        /// <exception cref="System.ArgumentException">
-        /// A model with the specified string ID or integer ID already exists.
-        /// </exception>
-        public static void Add(string sid, int id, T model)
-        {
-            _models.Add(sid, model);
-            _intIdentified.Add(id, new WeakReference<T>(model));
-        }
-
+        /// <exception cref="ArgumentException">Id already taken.</exception>
         internal static void AddVanilla(int id, T model)
-            => Add(StringId.Concat(MainDomain, id.ToString()), id, model);
+        {
+            _models.Add(id, model);
+        }
+
+        /// <exception cref="ArgumentException">Id already taken.</exception>
+        internal static void Add(int id, string sid, T model)
+        {
+            _models.Add(id, model);
+            _modelsBySid.Add(sid, model);
+        }
 
         /// <summary>
         /// Gets all models in a domain.
@@ -94,7 +68,7 @@ namespace Seshat {
         /// </returns>
         public static IEnumerable<T> ByDomain(string domain)
         {
-            return _models
+            return _modelsBySid
                 .Where(kvp => StringId.InDomain(kvp.Key, domain))
                 .Select(kvp => kvp.Value);
         }

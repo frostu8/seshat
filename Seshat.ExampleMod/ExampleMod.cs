@@ -16,8 +16,8 @@ namespace ExampleMod
         {
             Logger.Info(Metadata.id, $"Load(); called for mod {Metadata.name}");
 
-            // print a file!
-            PrintLoremIpsum();
+            // load our custom card
+            this.RegisterCombatPage("/card.xml");
         }
 
         /// This function is called to undo any patches or release any unmanaged
@@ -32,21 +32,6 @@ namespace ExampleMod
         public override void Initialize()
         {
             Logger.Info(Metadata.id, $"Initialize(); called for mod {Metadata.name}");
-        }
-
-        private void PrintLoremIpsum()
-        {
-            using (TextReader l = new StreamReader(this.Bundle.GetFile("LoremIpsum.txt")))
-            {
-                string line = l.ReadLine();
-                while (line != null)
-                {
-                    Logger.Debug(Metadata.id, line);
-
-                    // read another line
-                    line = l.ReadLine();
-                }
-            }
         }
 
         /// This is the metadata of the module. This can be overriden to
