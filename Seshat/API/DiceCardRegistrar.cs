@@ -10,14 +10,14 @@ namespace Seshat.API
     /// </summary>
     public static class DiceCardRegistrar
     {
-        private static ModelRegistrar<DiceCardXmlInfo> _instance;
-        private static ModelRegistrar<DiceCardXmlInfo> Instance
+        private static ModelRegistrar<DiceCardXmlInfo> _registrar;
+        private static ModelRegistrar<DiceCardXmlInfo> Registrar
         {
             get 
             { 
-                if (_instance == null) 
-                    _instance = new ModelRegistrar<DiceCardXmlInfo>(); 
-                return _instance; 
+                if (_registrar == null) 
+                    _registrar = new ModelRegistrar<DiceCardXmlInfo>(); 
+                return _registrar; 
             }
         }
 
@@ -40,7 +40,7 @@ namespace Seshat.API
             NormalizeCardId(card);
             NormalizeCardReferences(card);
 
-            Instance.Add(card.id, card, card.GetSID());
+            Registrar.Add(card.id, card, card.GetSID());
         }
 
         // It is acceptable to have no string id, but it is not acceptable to
@@ -49,7 +49,7 @@ namespace Seshat.API
         {
             if (!card.HasIntegerID())
             {
-                int generatedId = IdGen.NextFree(id => !Instance.ModelDict.ContainsKey(id));
+                int generatedId = IdGen.NextFree(id => !Registrar.ModelDict.ContainsKey(id));
 
                 card.id = generatedId;
             }
@@ -67,12 +67,12 @@ namespace Seshat.API
         }
 
         public static DiceCardXmlInfo Get(int id)
-            => Instance.Get(id);
+            => Registrar.Get(id);
         public static DiceCardXmlInfo Get(string sid)
-            => Instance.Get(sid);
+            => Registrar.Get(sid);
         public static IEnumerable<DiceCardXmlInfo> ByDomain(string domain)
-            => Instance.ByDomain(domain);
+            => Registrar.ByDomain(domain);
         public static IEnumerable<DiceCardXmlInfo> All()
-            => Instance.All();
+            => Registrar.All();
     }
 }
