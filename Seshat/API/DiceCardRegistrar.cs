@@ -1,4 +1,6 @@
-﻿using LOR_DiceSystem;
+﻿using System.Collections;
+using System.Collections.Generic;
+using LOR_DiceSystem;
 
 namespace Seshat.API
 {
@@ -6,8 +8,19 @@ namespace Seshat.API
     /// A specialization of <see cref="ModelRegistrar{T}"/> for
     /// <see cref="DiceCardXmlInfo"/>.
     /// </summary>
-    public class DiceCardRegistrar : ModelRegistrar<DiceCardXmlInfo>
-    { 
+    public static class DiceCardRegistrar
+    {
+        private static ModelRegistrar<DiceCardXmlInfo> _instance;
+        private static ModelRegistrar<DiceCardXmlInfo> Instance
+        {
+            get 
+            { 
+                if (_instance == null) 
+                    _instance = new ModelRegistrar<DiceCardXmlInfo>(); 
+                return _instance; 
+            }
+        }
+
         /// <summary>
         /// Directly registers a card to the registrar, giving it an unallocated
         /// number ID.
@@ -27,7 +40,7 @@ namespace Seshat.API
             NormalizeCardId(card);
             NormalizeCardReferences(card);
 
-            Add(card.id, card, card.GetSID());
+            Instance.Add(card.id, card, card.GetSID());
         }
 
         // It is acceptable to have no string id, but it is not acceptable to
@@ -36,7 +49,7 @@ namespace Seshat.API
         {
             if (!card.HasIntegerID())
             {
-                int generatedId = IdGen.NextFree(id => !_models.ContainsKey(id));
+                int generatedId = IdGen.NextFree(id => !Instance.ModelDict.ContainsKey(id));
 
                 card.id = generatedId;
             }
@@ -52,5 +65,14 @@ namespace Seshat.API
                 if (!string.IsNullOrEmpty(dice.Script))
                     dice.Script = StringId.HasDomainOr(dice.Script, domain);
         }
+
+        public static DiceCardXmlInfo Get(int id)
+            => Instance.Get(id);
+        public static DiceCardXmlInfo Get(string sid)
+            => Instance.Get(sid);
+        public static IEnumerable<DiceCardXmlInfo> ByDomain(string domain)
+            => Instance.ByDomain(domain);
+        public static IEnumerable<DiceCardXmlInfo> All()
+            => Instance.All();
     }
 }
