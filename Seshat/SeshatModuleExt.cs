@@ -21,7 +21,7 @@ namespace Seshat
             {
                 card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
 
-                DiceCardRegistrar.Register(card);
+                DiceCardRegistrar.Add(card);
             }
         }
 

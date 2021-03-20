@@ -35,7 +35,7 @@ namespace Seshat.API
         /// identified models will be normalized (if they do not have domains,
         /// they will be given the domain of the SID of the card).
         /// </remarks>
-        public static void Register(DiceCardXmlInfo card)
+        internal static void Add(DiceCardXmlInfo card)
         {
             NormalizeCardId(card);
             NormalizeCardReferences(card);
