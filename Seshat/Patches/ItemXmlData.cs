@@ -1,9 +1,14 @@
 ﻿using MonoMod;
+using System.ComponentModel;
 using System.Xml;
 using System.Xml.Serialization;
 
 class patch_ItemXmlData : ItemXmlData
 {
+    // a mod won't have this defined, so set it to -1 to indicate it isn't
+    [DefaultValue(-1)]
+    public new int id;
+
     [XmlAttribute("SID")]
     public string sid;
 }
@@ -26,4 +31,7 @@ public static class ItemXmlDataExt
         ((patch_ItemXmlData)self).sid = sid;
         return self;
     }
+
+    internal static bool HasIntegerID(this ItemXmlData self)
+        => self.id >= 0;
 }

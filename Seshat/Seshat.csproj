@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\DiceCardAbilityRegistrar.cs" />
     <Compile Include="API\DiceCardRegistrar.cs" />
     <Compile Include="IdGen.cs" />
     <Compile Include="Logger.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Module\NullModule.cs" />
     <Compile Include="Module\SeshatModule.cs" />
     <Compile Include="MonoModRules.cs" />
+    <Compile Include="Patches\BattleDiceCardModel.cs" />
     <Compile Include="Patches\EntryScene.cs" />
     <Compile Include="Patches\GlobalGameManager.cs" />
     <Compile Include="Patches\ItemXmlData.cs" />

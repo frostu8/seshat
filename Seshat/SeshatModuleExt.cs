@@ -17,15 +17,12 @@ namespace Seshat
         /// </exception>
         public static void RegisterCombatPages(this SeshatModule module, DiceCardXmlRoot root)
         {
-            // it is important to do these seperately just in case there is an
-            // error in the xml definitions
-            // translate domain
             foreach (var card in root.cardXmlList)
-                card.SetSID(StringId.Concat(module.Metadata.id, card.GetSID()));
+            {
+                card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.id));
 
-            // register
-            foreach (var card in root.cardXmlList)
                 DiceCardRegistrar.Register(card);
+            }
         }
 
         /// <summary>

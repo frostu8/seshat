@@ -22,7 +22,7 @@ class patch_ItemXmlDataList
     [MonoModReplace]
     public void InitCardInfo_V2(List<DiceCardXmlInfo> list)
     {
-        list.ForEach(card => DiceCardRegistrar.AddVanilla(card.id, card));
+        list.ForEach(card => DiceCardRegistrar.Register(card));
     }
 
     [MonoModReplace]

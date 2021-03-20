@@ -94,6 +94,20 @@ namespace Seshat.API
         }
 
         /// <summary>
+        /// Appends a domain to a string ID if it doesn't already have a domain.
+        /// </summary>
+        /// <param name="sid">The string ID.</param>
+        /// <param name="domain">A domain.</param>
+        /// <returns>The new string ID.</returns>
+        public static string HasDomainOr(string sid, string domain)
+        {
+            if (HasDomain(sid))
+                return sid;
+            else
+                return Concat(domain, sid);
+        }
+
+        /// <summary>
         /// Checks if two string ID are in the same domain.
         /// </summary>
         /// <param name="sid">A fully-qualified string ID.</param>
@@ -120,5 +134,8 @@ namespace Seshat.API
         {
             return GetDomain(sid).Equals(domain);
         }
+
+        internal static string VanillaSid(string sid)
+            => Concat(Seshat.VanillaDomain, sid);
     }
 }

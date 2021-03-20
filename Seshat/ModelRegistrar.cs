@@ -13,11 +13,6 @@ namespace Seshat {
     /// </para>
     /// </summary>
     public class ModelRegistrar<T> where T: class {
-        /// <summary>
-        /// The domain that contains all vanilla items.
-        /// </summary>
-        public const string MainDomain = "com.projectmoon.libraryofruina";
-
         protected static Dictionary<int, T> _models = new Dictionary<int, T>();
 
         protected static Dictionary<string, T> _modelsBySid = new Dictionary<string, T>();
@@ -47,16 +42,12 @@ namespace Seshat {
         }
 
         /// <exception cref="ArgumentException">Id already taken.</exception>
-        internal static void AddVanilla(int id, T model)
+        internal static void Add(int id, T model, string sid = null)
         {
             _models.Add(id, model);
-        }
 
-        /// <exception cref="ArgumentException">Id already taken.</exception>
-        internal static void Add(int id, string sid, T model)
-        {
-            _models.Add(id, model);
-            _modelsBySid.Add(sid, model);
+            if (sid != null)
+                _modelsBySid.Add(sid, model);
         }
 
         /// <summary>
