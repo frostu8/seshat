@@ -19,7 +19,7 @@ namespace Seshat
         {
             foreach (var card in root.cardXmlList)
             {
-                card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.id));
+                card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
 
                 DiceCardRegistrar.Register(card);
             }

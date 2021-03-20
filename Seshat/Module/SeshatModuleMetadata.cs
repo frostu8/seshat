@@ -25,6 +25,11 @@ namespace Seshat.Module
         /// </summary>
         public string dll;
 
+        /// <summary>
+        /// The default domain of the mod.
+        /// </summary>
+        public string default_domain;
+
         public SeshatModuleMetadata(string id)
         {
             this.id = id;
@@ -34,6 +39,8 @@ namespace Seshat.Module
         {
             return $"{this.id}";
         }
+
+        public string Domain => default_domain != null ? default_domain : id;
 
         #region SERIALIZATION
 
@@ -57,6 +64,7 @@ namespace Seshat.Module
                 {
                     name = Required<TomlString>(table, "name").Value,
                     dll = Nullable<TomlString>(table, "dll")?.Value,
+                    default_domain = Nullable<TomlString>(table, "default_domain")?.Value,
                 };
             } 
             else
