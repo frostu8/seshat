@@ -65,7 +65,7 @@ namespace Seshat.API
         /// <exception cref="ArgumentException">
         /// A type already exists with the same sid.
         /// </exception>
-        public static void Add(string sid, Type type)
+        internal static void Add(string sid, Type type)
         {
             if (!type.IsSubclassOf(typeof(DiceCardAbilityBase)))
                 throw new ArgumentException("Type must derive from DiceCardAbilityBase!", "type");
