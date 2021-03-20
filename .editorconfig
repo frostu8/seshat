@@ -42,6 +42,10 @@ csharp_style_expression_bodied_methods = false:suggestion
 #prefer out variables to be declared inline in the argument list of a method call when possible
 csharp_style_inlined_variable_declaration = true:suggestion
 
+csharp_style_expression_bodied_methods = when_on_single_line
+
+csharp_prefer_braces = when_multiline
+
 #Style - implicit and explicit types
 
 #prefer explicit type over var in all cases, unless overridden by another code style rule
