@@ -9,7 +9,17 @@ namespace Seshat.API
     /// </summary>
     public static class DiceCardAbilityRegistrar
     {
-        private static Dictionary<string, Type> _abilities = new Dictionary<string, Type>();
+        private static SidModelRegistrar<Type> _registrar;
+        private static SidModelRegistrar<Type> Registrar
+        {
+            get
+            {
+                if (_registrar == null)
+                    _registrar = new SidModelRegistrar<Type>();
+
+                return _registrar;
+            }
+        }
 
         /// <summary>
         /// Gets a <see cref="DiceCardAbilityBase"/> from the registrar,
@@ -33,11 +43,7 @@ namespace Seshat.API
         /// <param name="sid">The string ID of the ability.</param>
         /// <returns>The type, or <c>null</c> if it couldn't be found.</returns>
         public static Type Get(string sid)
-        {
-            if (_abilities.TryGetValue(sid, out Type type))
-                return type;
-            return null;
-        }
+            => Registrar.Get(sid);
 
         public static List<string> GetKeywords(string sid)
         {
@@ -54,25 +60,6 @@ namespace Seshat.API
             return keywords;
         }
 
-        /// <summary>
-        /// Adds a new <see cref="DiceCardAbilityBase"/> to the registrar.
-        /// </summary>
-        /// <param name="sid">The string ID of the ability.</param>
-        /// <param name="type">The ability class.</param>
-        /// <exception cref="ArgumentException">
-        /// The type does not derive from <see cref="DiceCardAbilityBase"/>.
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// A type already exists with the same sid.
-        /// </exception>
-        internal static void Add(string sid, Type type)
-        {
-            if (!type.IsSubclassOf(typeof(DiceCardAbilityBase)))
-                throw new ArgumentException("Type must derive from DiceCardAbilityBase!", "type");
-
-            _abilities.Add(sid, type);
-        }
-
         internal static void LoadVanilla()
         {
             Type[] types = Assembly.GetExecutingAssembly().GetTypes();
@@ -82,7 +69,7 @@ namespace Seshat.API
                 const string prefix = "DiceCardAbility_";
 
                 if (type.Name.StartsWith(prefix))
-                    Add(StringId.VanillaSid(type.Name.Substring(prefix.Length)), type);
+                    Registrar.Add(StringId.VanillaSid(type.Name.Substring(prefix.Length)), type);
             }
         }
     }

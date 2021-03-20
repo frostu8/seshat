@@ -95,11 +95,13 @@
     <Compile Include="SeshatLoader.cs" />
     <Compile Include="API\StringId.cs" />
     <Compile Include="SeshatModuleExt.cs" />
+    <Compile Include="SidModelRegistrar.cs" />
     <Compile Include="Tommy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- make all references non-private -->
   <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
