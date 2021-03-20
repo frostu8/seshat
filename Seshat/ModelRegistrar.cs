@@ -20,7 +20,7 @@ namespace Seshat {
         public T Get(int id)
             => _models.TryGetValue(id, out T value) ? value : null;
 
-        internal void Add(int id, T model, string sid = null)
+        public void Add(int id, T model, string sid = null)
         {
             _models.Add(id, model);
 
