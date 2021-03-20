@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml.Serialization;
 using LOR_DiceSystem;
 using Seshat.API;
+using Seshat.Attribute;
 using Seshat.Module;
 
 namespace Seshat
@@ -18,11 +20,21 @@ namespace Seshat
         public static void RegisterCombatPages(this SeshatModule module, DiceCardXmlRoot root)
         {
             foreach (var card in root.cardXmlList)
-            {
-                card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
+                RegisterSingleCombatPage(module, card);
+        }
 
-                DiceCardRegistrar.Add(card);
-            }
+        /// <summary>
+        /// Registers a combat page to Seshat.
+        /// </summary>
+        /// <param name="card">The combat page to register.</param>
+        /// <exception cref="System.ArgumentException">
+        /// One of the combat pages share a string id with an already registered 
+        /// card.
+        /// </exception>
+        public static void RegisterSingleCombatPage(this SeshatModule module, DiceCardXmlInfo card)
+        {
+            card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
+            DiceCardRegistrar.Add(card);
         }
 
         /// <summary>
