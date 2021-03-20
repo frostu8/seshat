@@ -1,4 +1,6 @@
-﻿namespace Seshat.Module
+﻿using GameSave;
+
+namespace Seshat.Module
 {
     /// <summary>
     /// The class all modules must inhereit.
@@ -38,5 +40,16 @@
         /// initialization can be completed.
         /// </summary>
         public virtual void Initialize() { }
+
+        /// <summary>
+        /// Called after the game has loaded the save data, and classes like
+        /// <see cref="InventoryModel"/> have loaded.
+        /// </summary>
+        public virtual void GameDataLoad(SaveData save) { }
+
+        /// <summary>
+        /// Called right before the game has started to save data to disk.
+        /// </summary>
+        public virtual void GameDataSave(SaveData save) { }
     }
 }

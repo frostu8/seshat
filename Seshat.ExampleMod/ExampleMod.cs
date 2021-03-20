@@ -1,6 +1,7 @@
 ﻿using Seshat.Module;
 using Seshat;
 using System.IO;
+using GameSave;
 
 namespace ExampleMod
 {
@@ -32,6 +33,22 @@ namespace ExampleMod
         public override void Initialize()
         {
             Logger.Info(Metadata.id, $"Initialize(); called for mod {Metadata.name}");
+        }
+
+        public override void GameDataLoad(SaveData save)
+        {
+            Logger.Info(Metadata.id, $"GameDataLoad(); called for mod {Metadata.name}");
+
+            // add our new combat page to the inventory
+            var customPage = this.GetCombatPage("troll_69");
+
+            if (InventoryModel.Instance.GetCardCount(customPage.id) <= 0)
+                InventoryModel.Instance.AddCard(customPage.id, 69);
+        }
+
+        public override void GameDataSave(SaveData save)
+        {
+            Logger.Info(Metadata.id, $"GameDataSave(); called for mod {Metadata.name}");
         }
 
         /// This is the metadata of the module. This can be overriden to

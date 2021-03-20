@@ -47,5 +47,10 @@ namespace Seshat
                 RegisterCombatPages(module, (DiceCardXmlRoot)xml.Deserialize(stream));
             }
         }
+
+        public static DiceCardXmlInfo GetCombatPage(this SeshatModule module, string sid)
+        {
+            return DiceCardRegistrar.Get(StringId.Concat(module.Metadata.id, sid));
+        }
     }
 }

@@ -53,6 +53,34 @@ namespace Seshat
             });
         }
 
+        internal static void RunGameDataLoad(GameSave.SaveData save)
+        {
+            _modules.ForEach(module =>
+            {
+                try { module.GameDataLoad(save); }
+                catch (Exception e)
+                {
+                    Logger.Error("seshat", $"Failed to run GameDataLoad(); callback for mod {module.Metadata}!");
+                    Logger.Error("seshat", "SEE BELOW FOR EXCEPTION DETAILS:");
+                    e.LogException();
+                }
+            });
+        }
+
+        internal static void RunGameDataSave(GameSave.SaveData save)
+        {
+            _modules.ForEach(module =>
+            {
+                try { module.GameDataSave(save); }
+                catch (Exception e)
+                {
+                    Logger.Error("seshat", $"Failed to run GameDataSave(); callback for mod {module.Metadata}!");
+                    Logger.Error("seshat", "SEE BELOW FOR EXCEPTION DETAILS:");
+                    e.LogException();
+                }
+            });
+        }
+
         /// <summary>
         /// Registers a module to Seshat.
         /// </summary>
