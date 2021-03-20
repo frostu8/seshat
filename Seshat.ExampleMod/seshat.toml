@@ -7,6 +7,6 @@ name = "Example Mod"
 # error if you try to define two SeshatModules in the same assembly (unless you
 # override SeshatModule.Metadata)
 dll = "Seshat.ExampleMod.dll"
-# the default domain of mod content added by this mod
+# the domain of mod content added by this mod
 # OPTIONAL: this defaults to the mod id.
-default_domain = "com.seshat.example.mod"
+domain = "com.seshat.example.mod"
