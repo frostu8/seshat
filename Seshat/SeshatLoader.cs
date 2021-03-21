@@ -128,6 +128,7 @@ namespace Seshat
                 return;
             }
 
+            bool foundModule = false;
             foreach (Type type in types)
             {
                 if (typeof(SeshatModule).IsAssignableFrom(type)
@@ -141,10 +142,20 @@ namespace Seshat
                     mod.Metadata = meta;
                     mod.bundle = bundle;
                     mod.Register();
+
+                    foundModule = true;
                 }
 
                 if (System.Attribute.IsDefined(type, typeof(DiceAbilityAttribute)))
                     LoadDiceAbility(meta, type);
+            }
+
+            if (!foundModule)
+            {
+                // register null module for moduleless dll
+                NullModule mod = new NullModule(meta);
+                mod.bundle = bundle;
+                mod.Register();
             }
         }
 
