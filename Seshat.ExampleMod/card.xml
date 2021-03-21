@@ -8,7 +8,7 @@
 		<Script/>
 		<ScriptDesc/>
 		<BehaviourList>
-			<Behaviour Min="69" Dice="69" Type="Atk" Detail="Penetrate" Motion="H" EffectRes="" Script="" ActionScript="" />
+			<Behaviour Min="69" Dice="69" Type="Atk" Detail="Penetrate" Motion="H" EffectRes="" Script="sixty_nine" ActionScript="" />
 		</BehaviourList>
 		<Chapter>1</Chapter>
 		<Priority>2</Priority>

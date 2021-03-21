@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="API\DiceCardAbilityRegistrar.cs" />
     <Compile Include="API\DiceCardRegistrar.cs" />
+    <Compile Include="Attribute\DiceAbilityAttribute.cs" />
     <Compile Include="IdGen.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ModelRegistrar.cs" />

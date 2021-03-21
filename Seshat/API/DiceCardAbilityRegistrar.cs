@@ -21,6 +21,9 @@ namespace Seshat.API
             }
         }
 
+        internal static void Add(string sid, Type type)
+            => Registrar.Add(sid, type);
+
         /// <summary>
         /// Gets a <see cref="DiceCardAbilityBase"/> from the registrar,
         /// instantiates it and returns it.

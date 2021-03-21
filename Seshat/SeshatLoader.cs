@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Seshat.API;
+using Seshat.Attribute;
 using Seshat.Module;
 using UnityEngine;
 
@@ -126,21 +128,46 @@ namespace Seshat
                 return;
             }
 
-           
             foreach (Type type in types)
             {
                 if (typeof(SeshatModule).IsAssignableFrom(type)
                     && !type.IsAbstract 
                     && !typeof(NullModule).IsAssignableFrom(type))
                 {
-                    Logger.Debug("loader", $"Loading type {type.FullName} from {asm.FullName} in {meta}");
+                    Logger.Debug("loader", $"Loading module {type.FullName} " +
+                        $"from {asm.FullName} in {meta}");
+
                     SeshatModule mod = (SeshatModule)Activator.CreateInstance(type);
                     mod.Metadata = meta;
                     mod.bundle = bundle;
                     mod.Register();
                 }
+
+                if (System.Attribute.IsDefined(type, typeof(DiceAbilityAttribute)))
+                    LoadDiceAbility(meta, type);
             }
         }
+
+        private static void LoadDiceAbility(SeshatModuleMetadata meta, Type type)
+        {
+            DiceAbilityAttribute attr =
+                (DiceAbilityAttribute)System.Attribute.GetCustomAttribute(type, typeof(DiceAbilityAttribute));
+
+            if (!type.IsSubclassOf(typeof(DiceCardAbilityBase)))
+            {
+                Logger.Warn("loader", $"Type {type.FullName} attributed with " +
+                    $"DiceAbility does not extend DiceCardAbilityBase in {meta}");
+                return;
+            }
+
+            // normalize id
+            string id = StringId.HasDomainOr(attr.id, meta.Domain);
+
+            Logger.Debug("loader", $"Loading ability {type.Name} as {id} in {meta}");
+
+            DiceCardAbilityRegistrar.Add(id, type);
+        }
+
         private static Type[] GetTypesSafe(Assembly asm)
         {
             try
