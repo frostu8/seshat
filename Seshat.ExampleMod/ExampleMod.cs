@@ -15,6 +15,9 @@ namespace ExampleMod
         /// automatically based on the file structure of the mod.
         public override void Load()
         {
+            // IMPORTANT! CALL base.Load(); TO LOAD OUR CUSTOM TYPES.
+            base.Load();
+
             Logger.Info(Metadata.id, $"Load(); called for mod {Metadata.name}");
 
             // load our custom card

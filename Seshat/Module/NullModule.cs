@@ -10,7 +10,6 @@
             this.Metadata = meta;
         }
 
-        public override void Load() { }
-        public override void Unload() { }
+        public override void Initialize() { }
     }
 }

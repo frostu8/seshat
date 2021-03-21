@@ -128,7 +128,6 @@ namespace Seshat
                 return;
             }
 
-            bool foundModule = false;
             foreach (Type type in types)
             {
                 if (typeof(SeshatModule).IsAssignableFrom(type)
@@ -142,41 +141,8 @@ namespace Seshat
                     mod.Metadata = meta;
                     mod.bundle = bundle;
                     mod.Register();
-
-                    foundModule = true;
                 }
-
-                if (System.Attribute.IsDefined(type, typeof(DiceAbilityAttribute)))
-                    LoadDiceAbility(meta, type);
             }
-
-            if (!foundModule)
-            {
-                // register null module for moduleless dll
-                NullModule mod = new NullModule(meta);
-                mod.bundle = bundle;
-                mod.Register();
-            }
-        }
-
-        private static void LoadDiceAbility(SeshatModuleMetadata meta, Type type)
-        {
-            DiceAbilityAttribute attr =
-                (DiceAbilityAttribute)System.Attribute.GetCustomAttribute(type, typeof(DiceAbilityAttribute));
-
-            if (!type.IsSubclassOf(typeof(DiceCardAbilityBase)))
-            {
-                Logger.Warn("loader", $"Type {type.FullName} attributed with " +
-                    $"DiceAbility does not extend DiceCardAbilityBase in {meta}");
-                return;
-            }
-
-            // normalize id
-            string id = StringId.HasDomainOr(attr.id, meta.Domain);
-
-            Logger.Debug("loader", $"Loading ability {type.Name} as {id} in {meta}");
-
-            DiceCardAbilityRegistrar.Add(id, type);
         }
 
         private static Type[] GetTypesSafe(Assembly asm)

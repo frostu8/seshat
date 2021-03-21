@@ -24,5 +24,7 @@ namespace Seshat.Module
         }
 
         public override void Unload() { }
+
+        public override void Initialize() { }
     }
 }
