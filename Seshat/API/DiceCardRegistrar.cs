@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using LOR_DiceSystem;
+using LOR_XML;
 
 namespace Seshat.API
 {
@@ -49,9 +51,20 @@ namespace Seshat.API
         {
             if (!card.HasIntegerID())
             {
-                int generatedId = IdGen.NextFree(id => !Registrar.ModelDict.ContainsKey(id));
+                if (card.GetSID() == null)
+                    throw new ArgumentException("Model must have a string or numeric id!", "card");
 
-                card.id = generatedId;
+                // check if a sister registrar already has this card
+                BattleCardDesc otherCard = DiceCardLocalizeRegistrar.Get(card.GetSID());
+                if (otherCard != null)
+                {
+                    card.id = otherCard.cardID;
+                }
+                else
+                {
+                    int generatedId = IdGen.NextFree(id => !Registrar.ModelDict.ContainsKey(id));
+                    card.id = generatedId;
+                }
             }
         }
 

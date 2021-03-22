@@ -1,0 +1,7 @@
+﻿<BattleCardDescRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<cardDescList>
+		<BattleCardDesc SID="troll_69">
+			<LocalizedName>Troll 69</LocalizedName>
+		</BattleCardDesc>
+	</cardDescList>
+</BattleCardDescRoot>

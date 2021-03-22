@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 using LOR_DiceSystem;
+using LOR_XML;
 using Seshat.API;
 using Seshat.Attribute;
 using Seshat.Module;
@@ -60,6 +61,34 @@ namespace Seshat
         public static DiceCardXmlInfo GetCombatPage(this SeshatModule module, string sid)
         {
             return DiceCardRegistrar.Get(StringId.Concat(module.Metadata.id, sid));
+        }
+
+        public static void RegisterCombatPagesLocalization(
+            this SeshatModule module, BattleCardDescRoot root)
+        {
+            foreach (var card in root.cardDescList)
+                RegisterSingleCombatPageLocalization(module, card);
+        }
+
+        public static void RegisterSingleCombatPageLocalization(
+            this SeshatModule module, BattleCardDesc card)
+        {
+            card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
+            DiceCardLocalizeRegistrar.Add(card);
+        }
+
+        public static void RegisterCombatPagesLocalization(
+            this SeshatModule module, string bundlePath)
+        {
+            var xml = new XmlSerializer(typeof(BattleCardDescRoot));
+
+            using (Stream stream = module.Bundle.GetFile(bundlePath))
+            {
+                if (stream == null)
+                    throw new System.Exception("Failed to find bundle file!");
+
+                RegisterCombatPagesLocalization(module, (BattleCardDescRoot)xml.Deserialize(stream));
+            }
         }
     }
 }

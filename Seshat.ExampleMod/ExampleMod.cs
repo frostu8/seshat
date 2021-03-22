@@ -22,6 +22,9 @@ namespace ExampleMod
 
             // load our custom card
             this.RegisterCombatPages("card.xml");
+
+            // load our custom localizations
+            this.RegisterCombatPagesLocalization("card_localize.xml");
         }
 
         /// This function is called to undo any patches or release any unmanaged
