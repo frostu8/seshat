@@ -3,8 +3,8 @@ using Seshat.Attribute;
 
 namespace Seshat.ExampleMod
 {
-    [DiceAbility("sixty_nine")]
-    public class SixtyNine : DiceCardAbilityBase
+    [DiceAbility("destroy_ability")]
+    public class DestroyAbility : DiceCardAbilityBase
     {
         public override void OnRollDice()
         {

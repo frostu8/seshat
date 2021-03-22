@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <BattleCardAbilityDescRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-	<BattleCardAbility ID="sixty_nine">
+	<BattleCardAbility ID="destroy_ability">
 		<Desc>This die deals no damage. [On Hit] Deal fixed damage equal to target's HP.</Desc>
 	</BattleCardAbility>
 </BattleCardAbilityDescRoot>
