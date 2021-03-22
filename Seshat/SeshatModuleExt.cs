@@ -60,7 +60,7 @@ namespace Seshat
 
         public static DiceCardXmlInfo GetCombatPage(this SeshatModule module, string sid)
         {
-            return DiceCardRegistrar.Get(StringId.Concat(module.Metadata.id, sid));
+            return DiceCardRegistrar.Get(StringId.Concat(module.Metadata.Domain, sid));
         }
 
         public static void RegisterCombatPagesLocalization(
