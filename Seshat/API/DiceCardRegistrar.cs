@@ -39,7 +39,7 @@ namespace Seshat.API
         /// </remarks>
         internal static void Add(DiceCardXmlInfo card)
         {
-            NormalizeCardId(card);
+            ResolveCardId(card);
             NormalizeCardReferences(card);
 
             Registrar.Add(card.id, card, card.GetSID());
@@ -47,7 +47,7 @@ namespace Seshat.API
 
         // It is acceptable to have no string id, but it is not acceptable to
         // have no integer id.
-        private static void NormalizeCardId(DiceCardXmlInfo card)
+        private static void ResolveCardId(DiceCardXmlInfo card)
         {
             if (!card.HasIntegerID())
             {

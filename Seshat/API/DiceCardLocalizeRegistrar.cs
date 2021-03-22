@@ -23,14 +23,14 @@ namespace Seshat.API
 
         internal static void Add(BattleCardDesc card)
         {
-            NormalizeCardId(card);
+            ResolveCardId(card);
 
             Registrar.Add(card.cardID, card, card.GetSID());
         }
 
         // It is acceptable to have no string id, but it is not acceptable to
         // have no integer id.
-        private static void NormalizeCardId(BattleCardDesc card)
+        private static void ResolveCardId(BattleCardDesc card)
         {
             if (!card.HasIntegerID())
             {
