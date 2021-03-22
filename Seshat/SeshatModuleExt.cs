@@ -90,5 +90,33 @@ namespace Seshat
                 RegisterCombatPagesLocalization(module, (BattleCardDescRoot)xml.Deserialize(stream));
             }
         }
+
+        public static void RegisterDiceAbilitiesLocalization(
+            this SeshatModule module, BattleCardAbilityDescRoot root)
+        {
+            foreach (var desc in root.cardDescList)
+                RegisterSingleDiceAbilityLocalization(module, desc);
+        }
+
+        public static void RegisterSingleDiceAbilityLocalization(
+            this SeshatModule module, BattleCardAbilityDesc desc)
+        {
+            desc.SetSID(StringId.HasDomainOr(desc.GetSID(), module.Metadata.Domain));
+            DiceCardAbilityLocalizeRegistrar.Add(desc);
+        }
+
+        public static void RegisterDiceAbilitiesLocalization(
+            this SeshatModule module, string bundlePath)
+        {
+            var xml = new XmlSerializer(typeof(BattleCardAbilityDescRoot));
+
+            using (Stream stream = module.Bundle.GetFile(bundlePath))
+            {
+                if (stream == null)
+                    throw new System.Exception("Failed to find bundle file!");
+
+                RegisterDiceAbilitiesLocalization(module, (BattleCardAbilityDescRoot)xml.Deserialize(stream));
+            }
+        }
     }
 }

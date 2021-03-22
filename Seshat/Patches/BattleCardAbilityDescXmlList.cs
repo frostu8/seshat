@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using LOR_XML;
+using MonoMod;
+using Seshat.API;
+
+class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
+{
+    // disable unused field warnings, we know what we're doing!
+    // And no, we really don't need a keyword cache.
+#pragma warning disable CS0169
+    [MonoModRemove]
+    private Dictionary<string, BattleCardAbilityDesc> _dictionary;
+
+    [MonoModRemove]
+    private Dictionary<string, List<string>> _dictionaryKeywordCache = new Dictionary<string, List<string>>();
+#pragma warning restore CS0169
+
+    [MonoModReplace]
+    public new void Init(Dictionary<string, BattleCardAbilityDesc> dictionary)
+    {
+        // also append vanilla domain so the definitions match up in
+        // DiceCardAbilityRegistrar
+        foreach (var desc in dictionary.Values)
+        {
+            desc.SetSID(StringId.HasDomainOr(desc.GetSID(), Seshat.Seshat.VanillaDomain));
+            DiceCardAbilityLocalizeRegistrar.Add(desc);
+        }
+    }
+
+    [MonoModReplace]
+    public new List<string> GetAbilityDesc(string id)
+    {
+        BattleCardAbilityDesc desc = DiceCardAbilityLocalizeRegistrar.Get(id);
+
+        // we need to make a copy of this list
+        if (desc != null)
+            return new List<string>(desc.desc);
+        else
+            return new List<string>();
+    }
+
+    [MonoModReplace]
+    public new List<string> GetAbilityKeywords(string scriptName)
+    {
+        // TODO: fix this please :(
+        return new List<string>();
+    }
+
+    [MonoModConstructor]
+    [MonoModReplace]
+    public void ctor() { }
+}

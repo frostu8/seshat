@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\DiceCardAbilityLocalizeRegistrar.cs" />
     <Compile Include="API\DiceCardAbilityRegistrar.cs" />
     <Compile Include="API\DiceCardLocalizeRegistrar.cs" />
     <Compile Include="API\DiceCardRegistrar.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="Module\NullModule.cs" />
     <Compile Include="Module\SeshatModule.cs" />
     <Compile Include="MonoModRules.cs" />
+    <Compile Include="Patches\BattleCardAbilityDesc.cs" />
+    <Compile Include="Patches\BattleCardAbilityDescXmlList.cs" />
     <Compile Include="Patches\BattleCardDesc.cs" />
     <Compile Include="Patches\BattleCardDescXmlList.cs" />
     <Compile Include="Patches\BattleDiceCardModel.cs" />
