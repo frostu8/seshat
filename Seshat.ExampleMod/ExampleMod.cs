@@ -47,7 +47,7 @@ namespace ExampleMod
             Logger.Info(Metadata.id, $"GameDataLoad(); called for mod {Metadata.name}");
 
             // add our new combat page to the inventory
-            var customPage = this.Register.GetCombatPage("troll_69");
+            var customPage = this.Register.GetCombatPage("destroy");
 
             if (InventoryModel.Instance.GetCardCount(customPage.id) <= 0)
                 InventoryModel.Instance.AddCard(customPage.id, 69);
