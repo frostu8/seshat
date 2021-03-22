@@ -2,6 +2,7 @@
 using LOR_DiceSystem;
 using LOR_XML;
 using MonoMod;
+using Registrar = Seshat.API.Registrar;
 using Seshat.API;
 
 class patch_BattleCardDescXmlList : BattleCardDescXmlList
@@ -16,13 +17,13 @@ class patch_BattleCardDescXmlList : BattleCardDescXmlList
     public new void Init(Dictionary<int, BattleCardDesc> dictionary)
     {
         foreach (var card in dictionary.Values)
-            DiceCardLocalizeRegistrar.AddVanilla(card);
+            Registrar.Localize.CombatPage.AddVanilla(card);
     }
 
     [MonoModReplace]
     public new BattleCardDesc GetCardDesc(int cardID)
     {
-        BattleCardDesc card = DiceCardLocalizeRegistrar.Get(cardID);
+        BattleCardDesc card = Registrar.Localize.CombatPage.Get(cardID);
         if (card == null)
         {
             card = new BattleCardDesc();
@@ -41,16 +42,16 @@ class patch_BattleCardDescXmlList : BattleCardDescXmlList
 
     [MonoModReplace]
     public new string GetCardName(int cardID)
-        => DiceCardLocalizeRegistrar.Get(cardID)?.cardName ?? "Not Found";
+        => Registrar.Localize.CombatPage.Get(cardID)?.cardName ?? "Not Found";
 
     [MonoModReplace]
     public new string GetAbilityDesc(int cardID)
-        => DiceCardLocalizeRegistrar.Get(cardID)?.ability ?? string.Empty;
+        => Registrar.Localize.CombatPage.Get(cardID)?.ability ?? string.Empty;
 
     [MonoModReplace]
     public new string GetBehaviourDesc(int cardID, int behaviourIdx)
     {
-        return DiceCardLocalizeRegistrar.Get(cardID)?.behaviourDescList
+        return Registrar.Localize.CombatPage.Get(cardID)?.behaviourDescList
             .Find(x => x.behaviourID == behaviourIdx)?.behaviourDesc 
             ?? string.Empty;
 

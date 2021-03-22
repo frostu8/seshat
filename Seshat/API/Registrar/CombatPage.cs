@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using LOR_DiceSystem;
 using LOR_XML;
 
-namespace Seshat.API
+namespace Seshat.API.Registrar
 {
-    public static class DiceCardRegistrar
+    public static class CombatPage
     {
         private static Dictionary<int, DiceCardXmlInfo> _cards = 
             new Dictionary<int, DiceCardXmlInfo>();

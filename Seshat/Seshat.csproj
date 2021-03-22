@@ -72,12 +72,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\DiceCardAbilityLocalizeRegistrar.cs" />
-    <Compile Include="API\DiceCardAbilityRegistrar.cs" />
-    <Compile Include="API\DiceCardLocalizeRegistrar.cs" />
-    <Compile Include="API\DiceCardRegistrar.cs" />
-    <Compile Include="API\DiceCardSelfAbilityLocalizeRegistrar.cs" />
-    <Compile Include="API\DiceCardSelfAbilityRegistrar.cs" />
+    <Compile Include="API\Registrar\Localize\DiceAbility.cs" />
+    <Compile Include="API\Registrar\DiceAbility.cs" />
+    <Compile Include="API\Registrar\Localize\CombatPage.cs" />
+    <Compile Include="API\Registrar\CombatPage.cs" />
+    <Compile Include="API\Registrar\Localize\CardAbility.cs" />
+    <Compile Include="API\Registrar\CardAbility.cs" />
     <Compile Include="Attribute\CardAbilityAttribute.cs" />
     <Compile Include="Attribute\DiceAbilityAttribute.cs" />
     <Compile Include="IdGen.cs" />

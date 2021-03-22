@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using GameSave;
+using Registrar = Seshat.API.Registrar;
 using Seshat.API;
 using Seshat.Attribute;
 
@@ -94,7 +95,7 @@ namespace Seshat.Module
 
             Logger.Debug(Metadata.id, $"Loading dice ability {type.Name} as {id}");
 
-            DiceCardAbilityRegistrar.AddModded(id, type);
+            Registrar.DiceAbility.AddModded(id, type);
         }
 
         protected void RegisterCardAbility(Type type)
@@ -121,7 +122,7 @@ namespace Seshat.Module
 
             Logger.Debug(Metadata.id, $"Loadingc card ability {type.Name} as {id}");
 
-            DiceCardSelfAbilityRegistrar.AddModded(id, type);
+            Registrar.CardAbility.AddModded(id, type);
         }
     }
 }

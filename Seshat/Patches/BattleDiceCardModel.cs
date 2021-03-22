@@ -1,5 +1,6 @@
 ﻿using LOR_DiceSystem;
 using MonoMod;
+using Registrar = Seshat.API.Registrar;
 using Seshat.API;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ class patch_BattleDiceCardModel : BattleDiceCardModel
         DiceCardSelfAbilityBase ability;
         try
         {
-            ability = DiceCardSelfAbilityRegistrar.GetNew(this._xmlData.Script);
+            ability = Registrar.CardAbility.GetNew(this._xmlData.Script);
         }
         catch (Exception e)
         {
@@ -59,7 +60,7 @@ class patch_BattleDiceCardModel : BattleDiceCardModel
                 DiceCardAbilityBase ability;
                 try
                 {
-                    ability = DiceCardAbilityRegistrar.GetNew(dice.Script);
+                    ability = Registrar.DiceAbility.GetNew(dice.Script);
                 }
                 catch (Exception e)
                 {

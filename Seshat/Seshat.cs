@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Registrar = Seshat.API.Registrar;
 using Seshat.API;
 using Seshat.Module;
 
@@ -36,8 +37,8 @@ namespace Seshat
         internal static void RunLoad()
         {
             // run additional load callbacks
-            DiceCardAbilityRegistrar.LoadVanilla();
-            DiceCardSelfAbilityRegistrar.LoadVanilla();
+            Registrar.DiceAbility.LoadVanilla();
+            Registrar.CardAbility.LoadVanilla();
 
             _modules.ForEach(module => {
                 try { module.Load(); }

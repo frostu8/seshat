@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml.Serialization;
 using LOR_DiceSystem;
 using LOR_XML;
+using Registrar = Seshat.API.Registrar;
 using Seshat.API;
 using Seshat.Attribute;
 using Seshat.Module;
@@ -35,7 +36,7 @@ namespace Seshat
         public static void RegisterSingleCombatPage(this SeshatModule module, DiceCardXmlInfo card)
         {
             card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
-            DiceCardRegistrar.AddModded(card);
+            Registrar.CombatPage.AddModded(card);
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace Seshat
 
         public static DiceCardXmlInfo GetCombatPage(this SeshatModule module, string sid)
         {
-            return DiceCardRegistrar.Get(StringId.Concat(module.Metadata.Domain, sid));
+            return Registrar.CombatPage.Get(StringId.Concat(module.Metadata.Domain, sid));
         }
 
         public static void RegisterCombatPagesLocalization(
@@ -74,7 +75,7 @@ namespace Seshat
             this SeshatModule module, BattleCardDesc card)
         {
             card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
-            DiceCardLocalizeRegistrar.AddModded(card);
+            Registrar.Localize.CombatPage.AddModded(card);
         }
 
         public static void RegisterCombatPagesLocalization(
@@ -102,7 +103,7 @@ namespace Seshat
             this SeshatModule module, BattleCardAbilityDesc desc)
         {
             desc.SetSID(StringId.HasDomainOr(desc.GetSID(), module.Metadata.Domain));
-            DiceCardAbilityLocalizeRegistrar.AddModded(desc);
+            Registrar.Localize.DiceAbility.AddModded(desc);
         }
 
         public static void RegisterDiceAbilitiesLocalization(

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using LOR_DiceSystem;
 using LOR_XML;
 
-namespace Seshat.API
+namespace Seshat.API.Registrar.Localize
 {
-    public static class DiceCardLocalizeRegistrar
+    public static class CombatPage
     {
         private static ModelDictionary<BattleCardDesc> _desc =
             new ModelDictionary<BattleCardDesc>();
@@ -33,7 +33,7 @@ namespace Seshat.API
             // identified in the database. If C# devs know what they're doing
             // with dictionaries, this should have an absolute minimum overhead
             // for easier programming.
-            DiceCardXmlInfo card = DiceCardRegistrar.Get(id);
+            DiceCardXmlInfo card = Registrar.CombatPage.Get(id);
 
             if (card?.GetSID() != null)
                 return _desc.Get(card.GetSID());

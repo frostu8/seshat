@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LOR_XML;
 using MonoMod;
+using Registrar = Seshat.API.Registrar;
 using Seshat.API;
 
 class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
@@ -29,8 +30,8 @@ class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
             // TODO: write this so that the presence of abilities are checked,
             // instead of making two copies. Not too much overhead, but still
             // annoying to fall asleep at night knowing this exists.
-            DiceCardAbilityLocalizeRegistrar.AddVanilla(desc.Clone());
-            DiceCardSelfAbilityLocalizeRegistrar.AddVanilla(desc);
+            Registrar.Localize.DiceAbility.AddVanilla(desc.Clone());
+            Registrar.Localize.CardAbility.AddVanilla(desc);
         }
     }
 
@@ -52,8 +53,8 @@ class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
     private BattleCardAbilityDesc GetGenericAbility(string id)
     {
         return
-            DiceCardAbilityLocalizeRegistrar.Get(id) ??
-            DiceCardSelfAbilityLocalizeRegistrar.Get(id);
+            Registrar.Localize.DiceAbility.Get(id) ??
+            Registrar.Localize.CardAbility.Get(id);
     }
 
     [MonoModReplace]

@@ -3,7 +3,7 @@ using System.Linq;
 using System;
 using LOR_DiceSystem;
 using MonoMod;
-using Seshat.API;
+using Registrar = Seshat.API.Registrar;
 
 class patch_ItemXmlDataList
 {
@@ -22,7 +22,7 @@ class patch_ItemXmlDataList
     [MonoModReplace]
     public void InitCardInfo_V2(List<DiceCardXmlInfo> list)
     {
-        list.ForEach(card => DiceCardRegistrar.AddVanilla(card));
+        list.ForEach(card => Registrar.CombatPage.AddVanilla(card));
     }
 
     [MonoModReplace]
@@ -32,13 +32,13 @@ class patch_ItemXmlDataList
         // CardListViewer.Start();
         // CardResourceManager.InitializeAllArtworks();
         // might want to go ahead and just patch them but i'm lazy
-        return DiceCardRegistrar.All().ToList();
+        return Registrar.CombatPage.All().ToList();
     }
 
     [MonoModReplace]
     public List<DiceCardXmlInfo> GetBasicCardList()
     {
-        return DiceCardRegistrar.All()
+        return Registrar.CombatPage.All()
             .Where(card => card.optionList.Contains(CardOption.Basic))
             .ToList();
     }
@@ -46,6 +46,6 @@ class patch_ItemXmlDataList
     [MonoModReplace]
     public DiceCardXmlInfo GetCardItem(int id)
     {
-        return DiceCardRegistrar.Get(id);
+        return Registrar.CombatPage.Get(id);
     }
 }

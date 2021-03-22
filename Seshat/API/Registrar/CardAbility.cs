@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Seshat.API
+namespace Seshat.API.Registrar
 {
-    /// <summary>
-    /// Responsible for keeping track of all <see cref="DiceCardAbilityBase"/>.
-    /// </summary>
-    public static class DiceCardAbilityRegistrar
+    class CardAbility
     {
         private static ModelDictionary<Type> _abilities
             = new ModelDictionary<Type>();
@@ -18,23 +18,23 @@ namespace Seshat.API
             => _abilities.Add(sid, type);
 
         /// <summary>
-        /// Gets a <see cref="DiceCardAbilityBase"/> from the registrar,
+        /// Gets a <see cref="DiceCardSelfAbilityBase"/> from the registrar,
         /// instantiates it and returns it.
         /// </summary>
         /// <param name="sid">The string ID of the ability.</param>
         /// <returns>The ability, or <c>null</c> if it couldn't be found.</returns>
-        public static DiceCardAbilityBase GetNew(string sid)
+        public static DiceCardSelfAbilityBase GetNew(string sid)
         {
             Type type = Get(sid);
 
             if (type != null)
-                return (DiceCardAbilityBase)Activator.CreateInstance(type);
+                return (DiceCardSelfAbilityBase)Activator.CreateInstance(type);
             else
                 return null;
         }
 
         /// <summary>
-        /// Gets a <see cref="DiceCardAbilityBase"/> from the registrar.
+        /// Gets a <see cref="DiceCardSelfAbilityBase"/> from the registrar.
         /// </summary>
         /// <param name="sid">The string ID of the ability.</param>
         /// <returns>The type, or <c>null</c> if it couldn't be found.</returns>
@@ -48,7 +48,7 @@ namespace Seshat.API
             if (!string.IsNullOrEmpty(sid))
             {
 
-                DiceCardAbilityBase ability = GetNew(sid);
+                DiceCardSelfAbilityBase ability = GetNew(sid);
                 if (ability != null)
                     keywords.AddRange(ability.Keywords);
             }
@@ -62,7 +62,7 @@ namespace Seshat.API
 
             foreach (Type type in types)
             {
-                const string prefix = "DiceCardAbility_";
+                const string prefix = "DiceCardSelfAbility_";
 
                 if (type.Name.StartsWith(prefix))
                     AddVanilla(type.Name.Substring(prefix.Length), type);

@@ -1,8 +1,8 @@
 ﻿using LOR_XML;
 
-namespace Seshat.API
+namespace Seshat.API.Registrar.Localize
 {
-    public static class DiceCardSelfAbilityLocalizeRegistrar
+    public static class CardAbility
     {
         private static ModelDictionary<BattleCardAbilityDesc> _abilities
             = new ModelDictionary<BattleCardAbilityDesc>();

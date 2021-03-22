@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using LOR_XML;
 
-namespace Seshat.API
+namespace Seshat.API.Registrar.Localize
 {
-    public class DiceCardAbilityLocalizeRegistrar
+    public class DiceAbility
     {
         private static ModelDictionary<BattleCardAbilityDesc> _abilities
             = new ModelDictionary<BattleCardAbilityDesc>();
