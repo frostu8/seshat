@@ -83,6 +83,7 @@
     <Compile Include="IdGen.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ModelDictionary.cs" />
+    <Compile Include="ModuleRegisterHelper.cs" />
     <Compile Include="Module\BaseModInteropModule.cs" />
     <Compile Include="Module\NullModule.cs" />
     <Compile Include="Module\SeshatModule.cs" />
@@ -105,7 +106,6 @@
     <Compile Include="SeshatBundle.cs" />
     <Compile Include="SeshatLoader.cs" />
     <Compile Include="API\StringId.cs" />
-    <Compile Include="SeshatModuleExt.cs" />
     <Compile Include="Tommy.cs" />
   </ItemGroup>
   <ItemGroup>

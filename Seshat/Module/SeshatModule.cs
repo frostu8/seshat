@@ -28,6 +28,9 @@ namespace Seshat.Module
         public SeshatBundle Bundle { get { return bundle; } }
         internal SeshatBundle bundle;
 
+        public ModuleRegisterHelper Register 
+        { get => new ModuleRegisterHelper(this); }
+
         /// <summary>
         /// Called after the game has loaded all assets, and Seshat has loaded
         /// all other modules.
