@@ -16,7 +16,7 @@ class patch_BattleCardDescXmlList : BattleCardDescXmlList
     public new void Init(Dictionary<int, BattleCardDesc> dictionary)
     {
         foreach (var card in dictionary.Values)
-            DiceCardLocalizeRegistrar.Add(card);
+            DiceCardLocalizeRegistrar.AddVanilla(card);
     }
 
     [MonoModReplace]

@@ -106,5 +106,12 @@ namespace Seshat
 
         internal static bool HasId(string id)
             => _modules.Any(mod => mod.Metadata.id == id);
+
+        /// <summary>
+        /// This function hashes a numeric id so Seshat can properly interface
+        /// with it.
+        /// </summary>
+        internal static string HashNumericId(int id)
+            => StringId.Concat(VanillaDomain, id.ToString());
     }
 }

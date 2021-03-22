@@ -9,21 +9,19 @@ namespace Seshat.API
 {
     public class DiceCardAbilityLocalizeRegistrar
     {
-        private static SidModelRegistrar<BattleCardAbilityDesc> _registrar;
-        private static SidModelRegistrar<BattleCardAbilityDesc> Registrar
-        {
-            get 
-            { 
-                if (_registrar == null) 
-                    _registrar = new SidModelRegistrar<BattleCardAbilityDesc>(); 
-                return _registrar; 
-            }
-        }
+        private static ModelDictionary<BattleCardAbilityDesc> _abilities
+            = new ModelDictionary<BattleCardAbilityDesc>();
 
-        internal static void Add(BattleCardAbilityDesc desc)
-            => Registrar.Add(desc.GetSID(), desc);
+        internal static void AddVanilla(BattleCardAbilityDesc desc)
+        {
+            desc.SetSID(StringId.Concat(Seshat.VanillaDomain, desc.GetSID()));
+
+            AddModded(desc);
+        }
+        internal static void AddModded(BattleCardAbilityDesc desc)
+            => _abilities.Add(desc.GetSID(), desc);
 
         public static BattleCardAbilityDesc Get(string sid)
-            => Registrar.Get(sid);
+            => _abilities.Get(sid);
     }
 }

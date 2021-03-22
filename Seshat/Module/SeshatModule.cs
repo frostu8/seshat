@@ -94,7 +94,7 @@ namespace Seshat.Module
 
             Logger.Debug(Metadata.id, $"Loading ability {type.Name} as {id}");
 
-            DiceCardAbilityRegistrar.Add(id, type);
+            DiceCardAbilityRegistrar.AddModded(id, type);
         }
     }
 }

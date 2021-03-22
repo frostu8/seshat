@@ -9,20 +9,13 @@ namespace Seshat.API
     /// </summary>
     public static class DiceCardAbilityRegistrar
     {
-        private static SidModelRegistrar<Type> _registrar;
-        private static SidModelRegistrar<Type> Registrar
-        {
-            get
-            {
-                if (_registrar == null)
-                    _registrar = new SidModelRegistrar<Type>();
+        private static ModelDictionary<Type> _abilities
+            = new ModelDictionary<Type>();
 
-                return _registrar;
-            }
-        }
-
-        internal static void Add(string sid, Type type)
-            => Registrar.Add(sid, type);
+        internal static void AddVanilla(string sid, Type type)
+            => AddModded(StringId.Concat(Seshat.VanillaDomain, sid), type);
+        internal static void AddModded(string sid, Type type)
+            => _abilities.Add(sid, type);
 
         /// <summary>
         /// Gets a <see cref="DiceCardAbilityBase"/> from the registrar,
@@ -46,7 +39,7 @@ namespace Seshat.API
         /// <param name="sid">The string ID of the ability.</param>
         /// <returns>The type, or <c>null</c> if it couldn't be found.</returns>
         public static Type Get(string sid)
-            => Registrar.Get(sid);
+            => _abilities.Get(sid);
 
         public static List<string> GetKeywords(string sid)
         {
@@ -72,7 +65,7 @@ namespace Seshat.API
                 const string prefix = "DiceCardAbility_";
 
                 if (type.Name.StartsWith(prefix))
-                    Registrar.Add(StringId.VanillaSid(type.Name.Substring(prefix.Length)), type);
+                    AddVanilla(type.Name.Substring(prefix.Length), type);
             }
         }
     }

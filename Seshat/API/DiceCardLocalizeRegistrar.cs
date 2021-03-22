@@ -10,54 +10,42 @@ namespace Seshat.API
 {
     public static class DiceCardLocalizeRegistrar
     {
-        private static ModelRegistrar<BattleCardDesc> _registrar;
-        private static ModelRegistrar<BattleCardDesc> Registrar
+        private static ModelDictionary<BattleCardDesc> _desc =
+            new ModelDictionary<BattleCardDesc>();
+
+        internal static void AddVanilla(BattleCardDesc card)
         {
-            get 
-            { 
-                if (_registrar == null) 
-                    _registrar = new ModelRegistrar<BattleCardDesc>(); 
-                return _registrar; 
-            }
+            // hash a string id for the card
+            card.SetSID(Seshat.HashNumericId(card.cardID));
+
+            _desc.Add(card.GetSID(), card);
         }
 
-        internal static void Add(BattleCardDesc card)
+        internal static void AddModded(BattleCardDesc card)
         {
-            ResolveCardId(card);
-
-            Registrar.Add(card.cardID, card, card.GetSID());
-        }
-
-        // It is acceptable to have no string id, but it is not acceptable to
-        // have no integer id.
-        private static void ResolveCardId(BattleCardDesc card)
-        {
-            if (!card.HasIntegerID())
-            {
-                if (card.GetSID() == null)
-                    throw new ArgumentException("Model must have a string or numeric id!", "card");
-
-                // check if a sister registrar already has this card
-                DiceCardXmlInfo otherCard = DiceCardRegistrar.Get(card.GetSID());
-                if (otherCard != null)
-                {
-                    card.cardID = otherCard.id;
-                }
-                else
-                {
-                    int generatedId = IdGen.NextFree(id => !Registrar.ModelDict.ContainsKey(id));
-                    card.cardID = generatedId;
-                }
-            }
+            _desc.Add(card.GetSID(), card);
         }
 
         public static BattleCardDesc Get(int id)
-            => Registrar.Get(id);
+        {
+            // We can actually safely assume that if this function is being
+            // called by vanilla code, it means that this card is actually
+            // identified in the database. If C# devs know what they're doing
+            // with dictionaries, this should have an absolute minimum overhead
+            // for easier programming.
+            DiceCardXmlInfo card = DiceCardRegistrar.Get(id);
+
+            if (card?.GetSID() != null)
+                return _desc.Get(card.GetSID());
+            else
+                return null;
+        }
+
         public static BattleCardDesc Get(string sid)
-            => Registrar.Get(sid);
+            => _desc.Get(sid);
         public static IEnumerable<BattleCardDesc> ByDomain(string domain)
-            => Registrar.ByDomain(domain);
+            => _desc.ByDomain(domain);
         public static IEnumerable<BattleCardDesc> All()
-            => Registrar.All();
+            => _desc.Values;
     }
 }

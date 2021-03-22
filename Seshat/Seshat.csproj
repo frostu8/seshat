@@ -79,7 +79,7 @@
     <Compile Include="Attribute\DiceAbilityAttribute.cs" />
     <Compile Include="IdGen.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="ModelRegistrar.cs" />
+    <Compile Include="ModelDictionary.cs" />
     <Compile Include="Module\BaseModInteropModule.cs" />
     <Compile Include="Module\NullModule.cs" />
     <Compile Include="Module\SeshatModule.cs" />
@@ -103,7 +103,6 @@
     <Compile Include="SeshatLoader.cs" />
     <Compile Include="API\StringId.cs" />
     <Compile Include="SeshatModuleExt.cs" />
-    <Compile Include="SidModelRegistrar.cs" />
     <Compile Include="Tommy.cs" />
   </ItemGroup>
   <ItemGroup>

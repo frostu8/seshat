@@ -35,7 +35,7 @@ namespace Seshat
         public static void RegisterSingleCombatPage(this SeshatModule module, DiceCardXmlInfo card)
         {
             card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
-            DiceCardRegistrar.Add(card);
+            DiceCardRegistrar.AddModded(card);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Seshat
             this SeshatModule module, BattleCardDesc card)
         {
             card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
-            DiceCardLocalizeRegistrar.Add(card);
+            DiceCardLocalizeRegistrar.AddModded(card);
         }
 
         public static void RegisterCombatPagesLocalization(
@@ -102,7 +102,7 @@ namespace Seshat
             this SeshatModule module, BattleCardAbilityDesc desc)
         {
             desc.SetSID(StringId.HasDomainOr(desc.GetSID(), module.Metadata.Domain));
-            DiceCardAbilityLocalizeRegistrar.Add(desc);
+            DiceCardAbilityLocalizeRegistrar.AddModded(desc);
         }
 
         public static void RegisterDiceAbilitiesLocalization(

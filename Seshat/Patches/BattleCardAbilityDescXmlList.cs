@@ -25,10 +25,7 @@ class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
         // also append vanilla domain so the definitions match up in
         // DiceCardAbilityRegistrar
         foreach (var desc in dictionary.Values)
-        {
-            desc.SetSID(StringId.HasDomainOr(desc.GetSID(), Seshat.Seshat.VanillaDomain));
-            DiceCardAbilityLocalizeRegistrar.Add(desc);
-        }
+            DiceCardAbilityLocalizeRegistrar.AddVanilla(desc);
     }
 
     [MonoModReplace]
