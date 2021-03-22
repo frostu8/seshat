@@ -25,19 +25,35 @@ class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
         // also append vanilla domain so the definitions match up in
         // DiceCardAbilityRegistrar
         foreach (var desc in dictionary.Values)
-            DiceCardAbilityLocalizeRegistrar.AddVanilla(desc);
+        {
+            // TODO: write this so that the presence of abilities are checked,
+            // instead of making two copies. Not too much overhead, but still
+            // annoying to fall asleep at night knowing this exists.
+            DiceCardAbilityLocalizeRegistrar.AddVanilla(desc.Clone());
+            DiceCardSelfAbilityLocalizeRegistrar.AddVanilla(desc);
+        }
     }
 
     [MonoModReplace]
     public new List<string> GetAbilityDesc(string id)
     {
-        BattleCardAbilityDesc desc = DiceCardAbilityLocalizeRegistrar.Get(id);
+        BattleCardAbilityDesc desc = GetGenericAbility(id);
 
         // we need to make a copy of this list
         if (desc != null)
             return new List<string>(desc.desc);
         else
             return new List<string>();
+    }
+
+    // PMoon mixed card and dice abilities around so we have to try both of the
+    // registrars until we find a match. We might need to patch this in the
+    // future.
+    private BattleCardAbilityDesc GetGenericAbility(string id)
+    {
+        return
+            DiceCardAbilityLocalizeRegistrar.Get(id) ??
+            DiceCardSelfAbilityLocalizeRegistrar.Get(id);
     }
 
     [MonoModReplace]

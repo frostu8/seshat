@@ -37,6 +37,7 @@ namespace Seshat
         {
             // run additional load callbacks
             DiceCardAbilityRegistrar.LoadVanilla();
+            DiceCardSelfAbilityRegistrar.LoadVanilla();
 
             _modules.ForEach(module => {
                 try { module.Load(); }

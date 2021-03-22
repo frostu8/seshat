@@ -84,7 +84,7 @@ namespace Seshat.Module
 
             if (attr == null)
             {
-                Logger.Warn(Metadata.id, $"Type {type.FullName} is not" +
+                Logger.Warn(Metadata.id, $"Type {type.FullName} is not " +
                     "attributed with DiceAbility!");
                 return;
             }
@@ -92,9 +92,36 @@ namespace Seshat.Module
             // normalize id
             string id = StringId.HasDomainOr(attr.id, Metadata.Domain);
 
-            Logger.Debug(Metadata.id, $"Loading ability {type.Name} as {id}");
+            Logger.Debug(Metadata.id, $"Loading dice ability {type.Name} as {id}");
 
             DiceCardAbilityRegistrar.AddModded(id, type);
+        }
+
+        protected void RegisterCardAbility(Type type)
+        {
+            if (!type.IsSubclassOf(typeof(DiceCardSelfAbilityBase)))
+            {
+                Logger.Warn(Metadata.id, $"Type {type.FullName} attributed with " +
+                    "CardAbility does not extend DiceCardSelfAbilityBase!");
+                return;
+            }
+
+            CardAbilityAttribute attr =
+                (CardAbilityAttribute)System.Attribute.GetCustomAttribute(type, typeof(CardAbilityAttribute));
+
+            if (attr == null)
+            {
+                Logger.Warn(Metadata.id, $"Type {type.FullName} is not " +
+                    "attributed with CardAbility!");
+                return;
+            }
+
+            // normalize id
+            string id = StringId.HasDomainOr(attr.id, Metadata.Domain);
+
+            Logger.Debug(Metadata.id, $"Loadingc card ability {type.Name} as {id}");
+
+            DiceCardSelfAbilityRegistrar.AddModded(id, type);
         }
     }
 }

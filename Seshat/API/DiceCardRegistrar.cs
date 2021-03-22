@@ -42,6 +42,10 @@ namespace Seshat.API
         {
             string domain = StringId.GetDomain(card.GetSID());
 
+            // normalize card .Script
+            if (!string.IsNullOrEmpty(card.Script))
+                card.Script = StringId.HasDomainOr(card.Script, domain);
+
             // normalize dices .Script
             foreach (var dice in card.DiceBehaviourList)
                 if (!string.IsNullOrEmpty(dice.Script))

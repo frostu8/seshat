@@ -6,6 +6,12 @@ namespace LOR_XML
     // funnily enough, we don't have to do anything to this.
     // We still do want to define these extension methods to provide a
     // consistent api.
+    public class patch_BattleCardAbilityDesc : BattleCardAbilityDesc
+    {
+        internal patch_BattleCardAbilityDesc Clone()
+            => (patch_BattleCardAbilityDesc)MemberwiseClone();
+    }
+
     public static class BattleCardAbilityDescExt
     {
         /// <summary>
@@ -24,5 +30,8 @@ namespace LOR_XML
             self.id = sid;
             return self;
         }
+
+        internal static BattleCardAbilityDesc Clone(this BattleCardAbilityDesc self)
+            => ((patch_BattleCardAbilityDesc)self).Clone();
     }
 }

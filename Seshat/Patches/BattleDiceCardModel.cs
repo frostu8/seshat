@@ -11,6 +11,35 @@ class patch_BattleDiceCardModel : BattleDiceCardModel
     private DiceCardXmlInfo _xmlData;
 #pragma warning restore CS0649 
 
+    [MonoModReplace]
+    public new DiceCardSelfAbilityBase CreateDiceCardSelfAbilityScript()
+    {
+        if (string.IsNullOrEmpty(this._xmlData.Script))
+            return null;
+
+        DiceCardSelfAbilityBase ability;
+        try
+        {
+            ability = DiceCardSelfAbilityRegistrar.GetNew(this._xmlData.Script);
+        }
+        catch (Exception e)
+        {
+            Logger.Error("seshat.card.ability", 
+                $"Failed to load card ability {this._xmlData.Script}!");
+            e.LogException();
+            return null;
+        }
+
+        if (ability == null)
+        {
+            Logger.Warn("seshat.dice.ability", 
+                $"Dice ability {this._xmlData.Script} not found.");
+            return null;
+        }
+
+        return ability;
+    }
+
     // lets just replace this method, we can all agree it sucks
     [MonoModReplace]
     public new List<BattleDiceBehavior> CreateDiceCardBehaviorList()
