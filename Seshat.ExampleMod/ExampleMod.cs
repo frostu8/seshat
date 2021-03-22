@@ -21,11 +21,11 @@ namespace ExampleMod
             Logger.Info(Metadata.id, $"Load(); called for mod {Metadata.name}");
 
             // load our custom card
-            this.RegisterCombatPages("card.xml");
+            this.Register.CombatPages("card.xml");
 
             // load our custom localizations
-            this.RegisterCombatPagesLocalization("card_localize.xml");
-            this.RegisterDiceAbilitiesLocalization("card_ability_localize.xml");
+            this.Register.LocalizeCombatPages("card_localize.xml");
+            this.Register.LocalizeDiceAbilities("card_ability_localize.xml");
         }
 
         /// This function is called to undo any patches or release any unmanaged
@@ -47,7 +47,7 @@ namespace ExampleMod
             Logger.Info(Metadata.id, $"GameDataLoad(); called for mod {Metadata.name}");
 
             // add our new combat page to the inventory
-            var customPage = this.GetCombatPage("troll_69");
+            var customPage = this.Register.GetCombatPage("troll_69");
 
             if (InventoryModel.Instance.GetCardCount(customPage.id) <= 0)
                 InventoryModel.Instance.AddCard(customPage.id, 69);
