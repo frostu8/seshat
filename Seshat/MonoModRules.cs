@@ -19,9 +19,29 @@ namespace MonoMod
     [MonoModCustomMethodAttribute("PatchSavePlayData")]
     class PatchSavePlayDataAttribute : Attribute { }
 
+    /// <summary>
+    /// Removes Xml attributes.
+    /// </summary>
+    [MonoModCustomAttribute("RemoveXmlMetadata")]
+    class RemoveXmlMetadataAttribute : Attribute { }
+
     static class MonoModRules
     {
         static TypeDefinition Seshat;
+
+        public static void RemoveXmlMetadata(ICustomAttributeProvider provider, CustomAttribute attrib)
+        {
+            Mono.Collections.Generic.Collection<CustomAttribute> oldAttributes
+                = new Mono.Collections.Generic.Collection<CustomAttribute>(provider.CustomAttributes);
+
+            provider.CustomAttributes.Clear();
+
+            foreach (var attr in oldAttributes)
+            {
+                if (attr.AttributeType.Namespace != "System.Xml.Serialization")
+                    provider.CustomAttributes.Add(attr);
+            }
+        }
 
         public static void PatchSavePlayData(MethodDefinition method, CustomAttribute attrib)
         {
