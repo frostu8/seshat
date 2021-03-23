@@ -9,12 +9,12 @@ namespace Seshat.API.Registrar.Localize
 
         internal static void AddVanilla(BattleCardAbilityDesc desc)
         {
-            desc.SetSID(StringId.Concat(Seshat.VanillaDomain, desc.GetSID()));
+            desc.SetId(StringId.Concat(Seshat.VanillaDomain, desc.GetId()));
 
             AddModded(desc);
         }
         internal static void AddModded(BattleCardAbilityDesc desc)
-            => _abilities.Add(desc.GetSID(), desc);
+            => _abilities.Add(desc.GetId(), desc);
 
         public static BattleCardAbilityDesc Get(string sid)
             => _abilities.Get(sid);

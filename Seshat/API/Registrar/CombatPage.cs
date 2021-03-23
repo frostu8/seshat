@@ -16,7 +16,7 @@ namespace Seshat.API.Registrar
         internal static void AddVanilla(DiceCardXmlInfo card)
         {
             // hash up a string id for the card
-            card.SetSID(Seshat.HashNumericId(card.id));
+            card.SetId(Seshat.HashNumericId(card.id));
 
             Add(card);
         }
@@ -35,12 +35,12 @@ namespace Seshat.API.Registrar
             NormalizeCardReferences(card);
 
             _cards.Add(card.id, card);
-            _cardsBySid.Add(card.GetSID(), card);
+            _cardsBySid.Add(card.GetId(), card);
         }
 
         private static void NormalizeCardReferences(DiceCardXmlInfo card)
         {
-            string domain = StringId.GetDomain(card.GetSID());
+            string domain = StringId.GetDomain(card.GetId());
 
             // normalize card .Script
             if (!string.IsNullOrEmpty(card.Script))

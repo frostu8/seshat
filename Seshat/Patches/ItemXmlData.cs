@@ -19,14 +19,14 @@ public static class ItemXmlDataExt
     /// Get the string ID of this ItemXmlData.
     /// </summary>
     /// <seealso cref="Seshat.StringId"/>
-    public static string GetSID(this ItemXmlData self)
+    public static string GetId(this ItemXmlData self)
         => ((patch_ItemXmlData)self).sid;
     
     /// <summary>
     /// Set the string ID of this ItemXmlData.
     /// </summary>
     /// <seealso cref="Seshat.StringId"/>
-    public static ItemXmlData SetSID(this ItemXmlData self, string sid)
+    public static ItemXmlData SetId(this ItemXmlData self, string sid)
     {
         ((patch_ItemXmlData)self).sid = sid;
         return self;

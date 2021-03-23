@@ -30,7 +30,7 @@ namespace Seshat
 
         public void SingleCombatPage(DiceCardXmlInfo card)
         {
-            card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
+            card.SetId(StringId.HasDomainOr(card.GetId(), module.Metadata.Domain));
             Registrar.CombatPage.AddModded(card);
         }
 
@@ -48,7 +48,7 @@ namespace Seshat
 
         public void LocalizeSingleCombatPage(BattleCardDesc card)
         {
-            card.SetSID(StringId.HasDomainOr(card.GetSID(), module.Metadata.Domain));
+            card.SetId(StringId.HasDomainOr(card.GetId(), module.Metadata.Domain));
             Registrar.Localize.CombatPage.AddModded(card);
         }
 
@@ -63,7 +63,7 @@ namespace Seshat
 
         public void LocalizeSingleDiceAbility(BattleCardAbilityDesc desc)
         {
-            desc.SetSID(StringId.HasDomainOr(desc.GetSID(), module.Metadata.Domain));
+            desc.SetId(StringId.HasDomainOr(desc.GetId(), module.Metadata.Domain));
             Registrar.Localize.DiceAbility.AddModded(desc);
         }
 
@@ -78,7 +78,7 @@ namespace Seshat
 
         public void LocalizeSingleCardAbility(BattleCardAbilityDesc desc)
         {
-            desc.SetSID(StringId.HasDomainOr(desc.GetSID(), module.Metadata.Domain));
+            desc.SetId(StringId.HasDomainOr(desc.GetId(), module.Metadata.Domain));
             Registrar.Localize.CardAbility.AddModded(desc);
         }
 

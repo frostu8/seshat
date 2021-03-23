@@ -16,14 +16,14 @@ namespace Seshat.API.Registrar.Localize
         internal static void AddVanilla(BattleCardDesc card)
         {
             // hash a string id for the card
-            card.SetSID(Seshat.HashNumericId(card.cardID));
+            card.SetId(Seshat.HashNumericId(card.cardID));
 
-            _desc.Add(card.GetSID(), card);
+            _desc.Add(card.GetId(), card);
         }
 
         internal static void AddModded(BattleCardDesc card)
         {
-            _desc.Add(card.GetSID(), card);
+            _desc.Add(card.GetId(), card);
         }
 
         public static BattleCardDesc Get(int id)
@@ -35,8 +35,8 @@ namespace Seshat.API.Registrar.Localize
             // for easier programming.
             DiceCardXmlInfo card = Registrar.CombatPage.Get(id);
 
-            if (card?.GetSID() != null)
-                return _desc.Get(card.GetSID());
+            if (card?.GetId() != null)
+                return _desc.Get(card.GetId());
             else
                 return null;
         }

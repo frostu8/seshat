@@ -18,14 +18,14 @@ namespace LOR_XML
         /// Get the string ID of this BattleCardAbilityDesc.
         /// </summary>
         /// <seealso cref="Seshat.StringId"/>
-        public static string GetSID(this BattleCardAbilityDesc self)
+        public static string GetId(this BattleCardAbilityDesc self)
             => self.id;
 
         /// <summary>
         /// Set the string ID of this BattleCardAbilityDesc.
         /// </summary>
         /// <seealso cref="Seshat.StringId"/>
-        public static BattleCardAbilityDesc SetSID(this BattleCardAbilityDesc self, string sid)
+        public static BattleCardAbilityDesc SetId(this BattleCardAbilityDesc self, string sid)
         {
             self.id = sid;
             return self;
