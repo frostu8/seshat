@@ -48,21 +48,24 @@ Clone this repository locally on your computer. Install the needed NuGet
 packages (this should be done automatically on the first load of the project in
 Visual Studio), and that's it.
 
-MonoMod's provided installer is rather limited, so I've written my own
-installer for Seshat, dubly named
-[Seshat.Installer](https://github.com/frostu8/Seshat.Installer/releases/latest).
-It's a single file, and as long as you have .NET Framework 4.6.1 installed,
-it should work perfectly fine:
+I've written a simplified version of `MonoMod.exe` to be used for modding
+Library of Ruina called
+[SeshatInstaller.Headless](https://github.com/frostu8/SeshatInstaller.Headless).
+Download the
+[latest release](https://github.com/frostu8/SeshatInstaller.Headless/releases/latest)
+and extract the contents to a folder of your choice. Then, in the command line,
+run `.\SeshatInstaller.Headless.exe` with the path to the `Seshat.dll` file.
 
-```bash
-.\Seshat.Installer.exe <seshat.dll>
+```batch
+.\Seshat.Installer.exe "path\to\Seshat.dll"
 
 # if your Library of Ruina installation directory is unable to be found:
-.\Seshat.Installer.exe -i <lor install directory> <seshat.dll>
+.\Seshat.Installer.exe -i "path\to\Assembly-CSharp" "path\to\Seshat.dll"
 ```
 
-The dependencies `Assembly-CSharp.dll` and `UnityEngine.CoreModule.dll` are
-both provided in this repository as stripped libraries. They work pretty well
-until there is an update to Library of Ruina, and these assemblies are stale.
-They're not required; you can simply change the dependency paths to the ones
-you have installed on your computer and it will work perfectly fine.
+The dependencies `Assembly-CSharp.dll`, `UnityEngine.UI.dll`  and 
+`UnityEngine.CoreModule.dll` are both provided in this repository as stripped 
+libraries. They work pretty well until there is an update to Library of Ruina, 
+and these assemblies are stale.  They're not required; you can simply change 
+the dependency paths to the ones you have installed on your computer and it 
+will work perfectly fine.
