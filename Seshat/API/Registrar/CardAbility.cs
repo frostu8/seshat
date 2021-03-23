@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Seshat.API.Registrar
 {
-    class CardAbility
+    public static class CardAbility
     {
         private static ModelDictionary<Type> _abilities
             = new ModelDictionary<Type>();
