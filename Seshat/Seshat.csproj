@@ -78,8 +78,10 @@
     <Compile Include="API\Registrar\CombatPage.cs" />
     <Compile Include="API\Registrar\Localize\CardAbility.cs" />
     <Compile Include="API\Registrar\CardAbility.cs" />
+    <Compile Include="API\Registrar\Passive.cs" />
     <Compile Include="Attribute\CardAbilityAttribute.cs" />
     <Compile Include="Attribute\DiceAbilityAttribute.cs" />
+    <Compile Include="Attribute\PassiveAbilityAttribute.cs" />
     <Compile Include="IdGen.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ModelDictionary.cs" />
@@ -93,10 +95,13 @@
     <Compile Include="Patches\BattleCardDesc.cs" />
     <Compile Include="Patches\BattleCardDescXmlList.cs" />
     <Compile Include="Patches\BattleDiceCardModel.cs" />
+    <Compile Include="Patches\BookModel.cs" />
     <Compile Include="Patches\EntryScene.cs" />
     <Compile Include="Patches\GlobalGameManager.cs" />
     <Compile Include="Patches\ItemXmlData.cs" />
     <Compile Include="Patches\ItemXmlDataList.cs" />
+    <Compile Include="Patches\PassiveXmlInfo.cs" />
+    <Compile Include="Patches\PassiveXmlList.cs" />
     <Compile Include="Patches\SaveManager.cs" />
     <Compile Include="Patches\UI\UIInvenCardList.cs" />
     <Compile Include="Patches\VersionViewer.cs" />
