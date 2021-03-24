@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
@@ -25,9 +26,35 @@ namespace MonoMod
     [MonoModCustomAttribute("RemoveXmlMetadata")]
     class RemoveXmlMetadataAttribute : Attribute { }
 
+    /// <summary>
+    /// Removes the default constructor from classes, preventing you from
+    /// deleting fields with <see cref="MonoModRemove"/>.
+    /// </summary>
+    [MonoModCustomAttribute("RemoveConstructor")]
+    class RemoveConstructorAttribute : Attribute { }
+
     static class MonoModRules
     {
         static TypeDefinition Seshat;
+
+        public static void RemoveConstructor(ICustomAttributeProvider provider, CustomAttribute attrib)
+        {
+            TypeDefinition type = (TypeDefinition)provider;
+
+            type.Methods
+                .Where(method => method.IsConstructor)
+                .Where(method => method.Parameters.Count <= 0)
+                .ForEach(method =>
+                {
+                    if (!method.HasBody)
+                        return;
+
+                    ILProcessor il = method.Body.GetILProcessor();
+
+                    method.Body.Instructions.Clear();
+                    method.Body.Instructions.Add(il.Create(OpCodes.Ret));
+                });
+        }
 
         public static void RemoveXmlMetadata(ICustomAttributeProvider provider, CustomAttribute attrib)
         {

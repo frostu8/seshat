@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MonoMod;
 
+[RemoveConstructor]
 class patch_PassiveXmlList : PassiveXmlList
 {
     // disable unused field warnings, we know what we're doing!
@@ -33,8 +34,4 @@ class patch_PassiveXmlList : PassiveXmlList
     [MonoModRemove]
     public new PassiveXmlInfo GetRandomPassive(int level)
         => throw new NotImplementedException("patch");
-
-    [MonoModConstructor]
-    [MonoModReplace]
-    public void ctor() { }
 }

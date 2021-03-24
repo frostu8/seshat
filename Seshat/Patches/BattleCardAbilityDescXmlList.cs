@@ -8,6 +8,7 @@ using MonoMod;
 using Registrar = Seshat.API.Registrar;
 using Seshat.API;
 
+[RemoveConstructor]
 class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
 {
     // disable unused field warnings, we know what we're doing!
@@ -63,8 +64,4 @@ class patch_BattleCardAbilityDescXmlList : BattleCardAbilityDescXmlList
         // TODO: fix this please :(
         return new List<string>();
     }
-
-    [MonoModConstructor]
-    [MonoModReplace]
-    public void ctor() { }
 }
