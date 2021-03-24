@@ -97,6 +97,7 @@
     <Compile Include="Patches\BattleDiceCardModel.cs" />
     <Compile Include="Patches\BookModel.cs" />
     <Compile Include="Patches\EntryScene.cs" />
+    <Compile Include="Patches\GiftModel.cs" />
     <Compile Include="Patches\GlobalGameManager.cs" />
     <Compile Include="Patches\ItemXmlData.cs" />
     <Compile Include="Patches\ItemXmlDataList.cs" />

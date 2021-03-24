@@ -12,9 +12,6 @@ BattleFarAreaPlayManager.EffectPhase(float)
 BattleDiceCardModel.GetPriority(int)
 // creates an emotion card ability
 BattleEmotionCardModel.ctor(EmotionCardXmlInfo, BattleUnitModel)
-// creates a passive ability (how gifts are implemented, nice code
-// deduplication, PMoon! frost approves.
-GiftModel.CreateScripts()
 // creates a quest mission script
 QuestMissionModel.ctor(QuestModel, QuestMissionXmlInfo)
 // creates a battle dialogue model script

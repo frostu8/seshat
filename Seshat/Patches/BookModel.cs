@@ -25,7 +25,7 @@ class patch_BookModel : BookModel
             }
             catch (Exception e)
             {
-                Logger.Error("seshat.keypage", $"Failed to add passive {passive.name}:");
+                Logger.Error("seshat.keypage", $"Failed to add passive {passive.passive.GetId()} name:");
                 Logger.Error("seshat.keypage", e.Message);
             }
         }
