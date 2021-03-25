@@ -70,9 +70,8 @@ namespace Seshat.API.Registrar
                 passiveImplementor = new PassiveAbilityBase();
             }
 
-            // TODO: have these get passive descriptions
-            passiveImplementor.name = "Not Found";
-            passiveImplementor.desc = "Not Found";
+            passiveImplementor.name = Localize.Passive.Get(passive.GetId()).name;
+            passiveImplementor.desc = Localize.Passive.Get(passive.GetId()).desc;
 
             passiveImplementor.rare = passive.rare;
 
