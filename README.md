@@ -1,4 +1,6 @@
 # Seshat
+[![Discord](https://img.shields.io/discord/824420293002526760)](https://discord.gg/sfnjEFBGrX)
+
 Seshat is a mod loader for the game
 [Library of Ruina](https://store.steampowered.com/app/1256670/Library_Of_Ruina/).
 It provides an easy way for the end user to install mods, and a powerful, yet
