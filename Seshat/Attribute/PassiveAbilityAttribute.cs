@@ -28,16 +28,22 @@ namespace Seshat.Attribute
 
         public PassiveXmlInfo CreateSpec()
         {
-            return new PassiveXmlInfo()
+            PassiveXmlInfo info = new PassiveXmlInfo()
             {
                 cost = this.cost,
                 rare = this.rarity,
                 CanGivePassive = this.attributable,
             };
+
+            info.SetId(this.id);
+            return info;
         }
 
         public static PassiveXmlInfo GetSpec(Type type)
         {
+            if (!type.IsSubclassOf(typeof(PassiveAbilityBase)))
+                throw new ArgumentException($"Type {type.Name} does not extend PassiveAbilityBase.");
+
             PassiveAbilityAttribute attr =
                 (PassiveAbilityAttribute)GetCustomAttribute(type, typeof(PassiveAbilityAttribute))
                 ?? throw new ArgumentException($"Type {type.Name} is not " +

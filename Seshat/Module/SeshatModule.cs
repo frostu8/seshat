@@ -45,6 +45,10 @@ namespace Seshat.Module
             {
                 if (System.Attribute.IsDefined(type, typeof(DiceAbilityAttribute)))
                     RegisterDiceAbility(type);
+                if (System.Attribute.IsDefined(type, typeof(CardAbilityAttribute)))
+                    RegisterCardAbility(type);
+                if (System.Attribute.IsDefined(type, typeof(PassiveAbilityAttribute)))
+                    RegisterPassiveAbility(type);
             }
         }
 
@@ -123,9 +127,32 @@ namespace Seshat.Module
             // normalize id
             string id = StringId.HasDomainOr(attr.id, Metadata.Domain);
 
-            Logger.Debug(Metadata.id, $"Loadingc card ability {type.Name} as {id}");
+            Logger.Debug(Metadata.id, $"Loading card ability {type.Name} as {id}");
 
             Registrar.CardAbility.AddModded(id, type);
+        }
+
+        protected void RegisterPassiveAbility(Type type)
+        {
+            try
+            {
+                PassiveXmlInfo info = PassiveAbilityAttribute.GetSpec(type);
+
+                if (info.GetId() == null)
+                {
+                    Logger.Warn(Metadata.id, $"Type {type.FullName} is missing an id!");
+                    return;
+                }
+
+                // normalize id
+                Logger.Debug(Metadata.id, $"Loading passive {type.Name} as {info.id}");
+
+                Registrar.Passive.AddModded(info);
+            } 
+            catch (ArgumentException e)
+            {
+                Logger.Warn(Metadata.id, e.Message);
+            }
         }
     }
 }
