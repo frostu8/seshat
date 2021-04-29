@@ -44,11 +44,35 @@ namespace Seshat.Module
             foreach (Type type in asm.GetTypes())
             {
                 if (System.Attribute.IsDefined(type, typeof(DiceAbilityAttribute)))
-                    RegisterDiceAbility(type);
+                {
+                    try { RegisterDiceAbility(type); }
+                    catch (Exception e)
+                    {
+                        Logger.Error(Metadata.id, "Failed to register type " +
+                            $"{type.FullName} as DiceAbility: "
+                            + e.Message);
+                    }
+                }
                 if (System.Attribute.IsDefined(type, typeof(CardAbilityAttribute)))
-                    RegisterCardAbility(type);
+                {
+                    try { RegisterCardAbility(type); }
+                    catch (Exception e)
+                    {
+                        Logger.Error(Metadata.id, "Failed to register type " +
+                            $"{type.FullName} as CardAbilty: "
+                            + e.Message);
+                    }
+                }
                 if (System.Attribute.IsDefined(type, typeof(PassiveAbilityAttribute)))
-                    RegisterPassiveAbility(type);
+                {
+                    try { RegisterPassiveAbility(type); }
+                    catch (Exception e)
+                    {
+                        Logger.Error(Metadata.id, "Failed to register type " +
+                            $"{type.FullName} as PassiveAbility: "
+                            + e.Message);
+                    }
+                }
             }
         }
 
@@ -82,9 +106,8 @@ namespace Seshat.Module
         {
             if (!type.IsSubclassOf(typeof(DiceCardAbilityBase)))
             {
-                Logger.Warn(Metadata.id, $"Type {type.FullName} attributed with " +
-                    "DiceAbility does not extend DiceCardAbilityBase!");
-                return;
+                throw new ArgumentException($"Type {type.FullName} does not " +
+                    "extend DiceCardAbilityBase!");
             }
 
             DiceAbilityAttribute attr =
@@ -92,16 +115,12 @@ namespace Seshat.Module
 
             if (attr == null)
             {
-                Logger.Warn(Metadata.id, $"Type {type.FullName} is not " +
+                throw new ArgumentException($"Type {type.FullName} is not " +
                     "attributed with DiceAbility!");
-                return;
             }
 
             // normalize id
             string id = StringId.HasDomainOr(attr.id, Metadata.Domain);
-
-            Logger.Debug(Metadata.id, $"Loading dice ability {type.Name} as {id}");
-
             Registrar.DiceAbility.AddModded(id, type);
         }
 
@@ -109,9 +128,8 @@ namespace Seshat.Module
         {
             if (!type.IsSubclassOf(typeof(DiceCardSelfAbilityBase)))
             {
-                Logger.Warn(Metadata.id, $"Type {type.FullName} attributed with " +
-                    "CardAbility does not extend DiceCardSelfAbilityBase!");
-                return;
+                throw new ArgumentException($"Type {type.FullName} does not " +
+                    "extend DiceCardSelfAbilityBase!");
             }
 
             CardAbilityAttribute attr =
@@ -119,40 +137,26 @@ namespace Seshat.Module
 
             if (attr == null)
             {
-                Logger.Warn(Metadata.id, $"Type {type.FullName} is not " +
+                throw new ArgumentException("Type {type.FullName} is not " +
                     "attributed with CardAbility!");
-                return;
             }
 
             // normalize id
             string id = StringId.HasDomainOr(attr.id, Metadata.Domain);
-
-            Logger.Debug(Metadata.id, $"Loading card ability {type.Name} as {id}");
-
             Registrar.CardAbility.AddModded(id, type);
         }
 
         protected void RegisterPassiveAbility(Type type)
         {
-            try
+            PassiveXmlInfo info = PassiveAbilityAttribute.GetSpec(type);
+
+            if (info.GetId() == null)
             {
-                PassiveXmlInfo info = PassiveAbilityAttribute.GetSpec(type);
-
-                if (info.GetId() == null)
-                {
-                    Logger.Warn(Metadata.id, $"Type {type.FullName} is missing an id!");
-                    return;
-                }
-
-                // normalize id
-                Logger.Debug(Metadata.id, $"Loading passive {type.Name} as {info.id}");
-
-                Registrar.Passive.AddModded(info);
-            } 
-            catch (ArgumentException e)
-            {
-                Logger.Warn(Metadata.id, e.Message);
+                Logger.Warn(Metadata.id, $"Type {type.FullName} is missing an id!");
+                return;
             }
+
+            Registrar.Passive.AddModded(info);
         }
     }
 }
