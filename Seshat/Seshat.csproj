@@ -72,6 +72,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Registrar\KeyPage.cs" />
     <Compile Include="API\Registrar\Localize\DiceAbility.cs" />
     <Compile Include="API\Registrar\DiceAbility.cs" />
     <Compile Include="API\Registrar\Localize\CombatPage.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Patches\BattleCardDesc.cs" />
     <Compile Include="Patches\BattleCardDescXmlList.cs" />
     <Compile Include="Patches\BattleDiceCardModel.cs" />
+    <Compile Include="Patches\BookEquipEffect.cs" />
     <Compile Include="Patches\BookModel.cs" />
     <Compile Include="Patches\EntryScene.cs" />
     <Compile Include="Patches\GiftModel.cs" />
