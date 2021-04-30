@@ -34,6 +34,10 @@ class patch_PassiveXmlList : PassiveXmlList
     public new PassiveXmlInfo GetRandomPassive(int level)
         => throw new NotImplementedException("patch");
 
+    [MonoModRemove]
+    public new List<PassiveXmlInfo> GetDataAll()
+        => throw new NotImplementedException("patch");
+
     [MonoModConstructor]
     [MonoModReplace]
     public void ctor() { }
