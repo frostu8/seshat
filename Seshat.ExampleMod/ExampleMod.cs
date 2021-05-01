@@ -7,6 +7,8 @@ namespace ExampleMod
 {
     public class ExampleMod : SeshatModule
     {
+        public static ExampleMod Instance;
+
         /// This function is called after all of the vanilla game data is done
         /// loading. Register any key pages/combat pages/abnormality pages/etc
         /// here, and make any patches here.
@@ -20,12 +22,16 @@ namespace ExampleMod
 
             Logger.Info(Metadata.id, $"Load(); called for mod {Metadata.name}");
 
+            // load our custom keypage
+            this.Register.KeyPages("keypage.xml");
+
             // load our custom card
             this.Register.CombatPages("card.xml");
 
             // load our custom localizations
             this.Register.LocalizeCombatPages("card_localize.xml");
             this.Register.LocalizeDiceAbilities("card_ability_localize.xml");
+            this.Register.LocalizePassiveAbilities("passive_localize.xml");
         }
 
         /// This function is called to undo any patches or release any unmanaged
@@ -39,6 +45,8 @@ namespace ExampleMod
         /// would.
         public override void Initialize()
         {
+            Instance = this;
+
             Logger.Info(Metadata.id, $"Initialize(); called for mod {Metadata.name}");
         }
 
@@ -47,10 +55,16 @@ namespace ExampleMod
             Logger.Info(Metadata.id, $"GameDataLoad(); called for mod {Metadata.name}");
 
             // add our new combat page to the inventory
-            var customPage = this.Register.GetCombatPage("destroy");
+            var customPage = this.Register.GetCombatPage("awesome_wotp");
 
             if (InventoryModel.Instance.GetCardCount(customPage.id) <= 0)
                 InventoryModel.Instance.AddCard(customPage.id, 69);
+
+            var customKey = this.Register.GetKeyPage("goon");
+
+            // add our new key page to the inventory
+            if (BookInventoryModel.Instance.GetBookCount(customKey.id) <= 0)
+                BookInventoryModel.Instance.CreateBook(customKey);
         }
 
         public override void GameDataSave(SaveData save)

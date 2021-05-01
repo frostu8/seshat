@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PassiveDescRoot>
+	<PassiveDesc SID="bong_bong_prowess">
+		<Name>Bong Bong's Prowess</Name>
+		<Desc>All offensive die gain: [On Hit] Recycle this die at most 6 times.</Desc>
+	</PassiveDesc>
+	<PassiveDesc SID="bong_bong_sturdiness">
+		<Name>Bong Bong's Sturdiness</Name>
+		<Desc>Take 50% less stagger damage.</Desc>
+	</PassiveDesc>
+</PassiveDescRoot>

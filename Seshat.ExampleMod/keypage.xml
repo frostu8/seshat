@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BookXmlRoot>
+	<Book SID="goon">
+		<Name>goon</Name>
+		<TextId>260002</TextId>
+		<EquipEffect>
+			<HP>102</HP>
+			<Break>52</Break>
+			<SpeedMin>4</SpeedMin>
+			<Speed>14</Speed>
+			
+			<SResist>Endure</SResist>
+			<PResist>Normal</PResist>
+			<HResist>Normal</HResist>
+			
+			<SBResist>Normal</SBResist>
+			<PBResist>Endure</PBResist>
+			<HBResist>Normal</HBResist>
+			
+			<Passive>250222</Passive>
+			<ModPassive>bong_bong_prowess</ModPassive>
+			<ModPassive>bong_bong_sturdiness</ModPassive>
+			<Passive>10008</Passive>
+			<Passive>260001</Passive>
+			<Passive>260002</Passive>
+			
+			<StartPlayPoint>4</StartPlayPoint>
+			<MaxPlayPoint>4</MaxPlayPoint>
+			
+			<OnlyCard>701001</OnlyCard>
+		</EquipEffect>
+		<BookIcon>HanaAssociation</BookIcon>
+		<Chapter>7</Chapter>
+		<Episode>60001</Episode>
+		<Rarity>Unique</Rarity>
+		<CharacterSkin>Mirinae</CharacterSkin>
+	</Book>
+</BookXmlRoot>

@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <DiceCardXmlRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Card SID="destroy">
-		<Name>Destroy</Name>
-		<Artwork>Dawn1</Artwork>
-		<Rarity>Unique</Rarity>
-		<Spec Range="Near" Cost="0" />
-		<Script/>
-		<ScriptDesc/>
+	<Card SID="awesome_wotp">
+		<Name>Awesome Will Of The Prescript</Name>
+		<Artwork>TheIndex4</Artwork>
+		<Rarity>Common</Rarity>
+		<Spec Range="Near" Cost="3" />
+		<Script>awesome_wotp/card</Script>
+		<ScriptDesc />
 		<BehaviourList>
-			<Behaviour Min="69" Dice="69" Type="Atk" Detail="Penetrate" Motion="H" EffectRes="" Script="destroy_ability" ActionScript="" />
+			<Behaviour Min="6" Dice="16" Type="Def" Detail="Evasion" Motion="E" EffectRes="" Script="" Desc="" />
+			<Behaviour Min="8" Dice="16" Type="Atk" Detail="Penetrate" Motion="Z" EffectRes="IndexUnit_Z" Script="" Desc="" />
+			<Behaviour Min="8" Dice="14" Type="Atk" Detail="Penetrate" Motion="Z" EffectRes="IndexUnit_Z" Script="" Desc="" />
 		</BehaviourList>
-		<Chapter>1</Chapter>
-		<Priority>2</Priority>
-		<SortPriority>1</SortPriority>
 	</Card>
 </DiceCardXmlRoot>
