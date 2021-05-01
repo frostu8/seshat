@@ -9,28 +9,12 @@ namespace Seshat.API.Registrar
     /// </summary>
     public static class DiceAbility
     {
-        private static ModelDictionary<Type> _abilities
-            = new ModelDictionary<Type>();
+        private static ModelDictionary<DiceAbilityInfo> _abilities
+            = new ModelDictionary<DiceAbilityInfo>();
 
-        internal static void AddVanilla(string sid, Type type)
-            => AddModded(StringId.Concat(Seshat.VanillaDomain, sid), type);
-        internal static void AddModded(string sid, Type type)
-            => _abilities.Add(sid, type);
-
-        /// <summary>
-        /// Gets a <see cref="DiceCardAbilityBase"/> from the registrar,
-        /// instantiates it and returns it.
-        /// </summary>
-        /// <param name="sid">The string ID of the ability.</param>
-        /// <returns>The ability, or <c>null</c> if it couldn't be found.</returns>
-        public static DiceCardAbilityBase GetNew(string sid)
+        internal static void Add(DiceAbilityInfo info)
         {
-            Type type = Get(sid);
-
-            if (type != null)
-                return (DiceCardAbilityBase)Activator.CreateInstance(type);
-            else
-                return null;
+            _abilities.Add(info.id, info);
         }
 
         /// <summary>
@@ -38,7 +22,7 @@ namespace Seshat.API.Registrar
         /// </summary>
         /// <param name="sid">The string ID of the ability.</param>
         /// <returns>The type, or <c>null</c> if it couldn't be found.</returns>
-        public static Type Get(string sid)
+        public static DiceAbilityInfo Get(string sid)
             => _abilities.Get(sid);
 
         public static List<string> GetKeywords(string sid)
@@ -48,7 +32,7 @@ namespace Seshat.API.Registrar
             if (!string.IsNullOrEmpty(sid))
             {
 
-                DiceCardAbilityBase ability = GetNew(sid);
+                DiceCardAbilityBase ability = Get(sid).Instantiate();
                 if (ability != null)
                     keywords.AddRange(ability.Keywords);
             }
@@ -65,7 +49,13 @@ namespace Seshat.API.Registrar
                 const string prefix = "DiceCardAbility_";
 
                 if (type.Name.StartsWith(prefix))
-                    AddVanilla(type.Name.Substring(prefix.Length), type);
+                {
+                    string id = StringId.Concat(
+                        Seshat.VanillaDomain, 
+                        type.Name.Substring(prefix.Length));
+
+                    Add(new DiceAbilityInfo(id, type));
+                }
             }
         }
     }

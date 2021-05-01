@@ -21,7 +21,7 @@ class patch_BattleDiceCardModel : BattleDiceCardModel
         DiceCardSelfAbilityBase ability;
         try
         {
-            ability = Registrar.CardAbility.GetNew(this._xmlData.Script);
+            ability = Registrar.CardAbility.Get(this._xmlData.Script)?.Instantiate();
         }
         catch (Exception e)
         {
@@ -60,7 +60,7 @@ class patch_BattleDiceCardModel : BattleDiceCardModel
                 DiceCardAbilityBase ability;
                 try
                 {
-                    ability = Registrar.DiceAbility.GetNew(dice.Script);
+                    ability = Registrar.DiceAbility.Get(dice.Script)?.Instantiate();
                 }
                 catch (Exception e)
                 {

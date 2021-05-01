@@ -111,6 +111,11 @@ namespace Seshat.Module
         /// </summary>
         public virtual void GameDataSave(SaveData save) { }
 
+        public DiceAbilityInfo GetDiceAbility(string id)
+        {
+            return Registrar.DiceAbility.Get(StringId.Concat(Metadata.Domain, id));
+        }
+
         protected void RegisterDiceAbility(Type type)
         {
             if (!type.IsSubclassOf(typeof(DiceCardAbilityBase)))
@@ -130,7 +135,7 @@ namespace Seshat.Module
 
             // normalize id
             string id = StringId.HasDomainOr(attr.id, Metadata.Domain);
-            Registrar.DiceAbility.AddModded(id, type);
+            Registrar.DiceAbility.Add(new DiceAbilityInfo(id, type));
         }
 
         protected void RegisterCardAbility(Type type)
@@ -152,7 +157,7 @@ namespace Seshat.Module
 
             // normalize id
             string id = StringId.HasDomainOr(attr.id, Metadata.Domain);
-            Registrar.CardAbility.AddModded(id, type);
+            Registrar.CardAbility.Add(new CardAbilityInfo(id, type));
         }
 
         protected void RegisterPassiveAbility(Type type)

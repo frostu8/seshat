@@ -9,36 +9,18 @@ namespace Seshat.API.Registrar
 {
     public static class CardAbility
     {
-        private static ModelDictionary<Type> _abilities
-            = new ModelDictionary<Type>();
+        private static ModelDictionary<CardAbilityInfo> _abilities
+            = new ModelDictionary<CardAbilityInfo>();
 
-        internal static void AddVanilla(string sid, Type type)
-            => AddModded(StringId.Concat(Seshat.VanillaDomain, sid), type);
-        internal static void AddModded(string sid, Type type)
-            => _abilities.Add(sid, type);
-
-        /// <summary>
-        /// Gets a <see cref="DiceCardSelfAbilityBase"/> from the registrar,
-        /// instantiates it and returns it.
-        /// </summary>
-        /// <param name="sid">The string ID of the ability.</param>
-        /// <returns>The ability, or <c>null</c> if it couldn't be found.</returns>
-        public static DiceCardSelfAbilityBase GetNew(string sid)
-        {
-            Type type = Get(sid);
-
-            if (type != null)
-                return (DiceCardSelfAbilityBase)Activator.CreateInstance(type);
-            else
-                return null;
-        }
+        internal static void Add(CardAbilityInfo card)
+            => _abilities.Add(card.id, card);
 
         /// <summary>
         /// Gets a <see cref="DiceCardSelfAbilityBase"/> from the registrar.
         /// </summary>
         /// <param name="sid">The string ID of the ability.</param>
         /// <returns>The type, or <c>null</c> if it couldn't be found.</returns>
-        public static Type Get(string sid)
+        public static CardAbilityInfo Get(string sid)
             => _abilities.Get(sid);
 
         public static List<string> GetKeywords(string sid)
@@ -48,7 +30,7 @@ namespace Seshat.API.Registrar
             if (!string.IsNullOrEmpty(sid))
             {
 
-                DiceCardSelfAbilityBase ability = GetNew(sid);
+                DiceCardSelfAbilityBase ability = Get(sid)?.Instantiate();
                 if (ability != null)
                     keywords.AddRange(ability.Keywords);
             }
@@ -65,7 +47,15 @@ namespace Seshat.API.Registrar
                 const string prefix = "DiceCardSelfAbility_";
 
                 if (type.Name.StartsWith(prefix))
-                    AddVanilla(type.Name.Substring(prefix.Length), type);
+                {
+                    string id = StringId.Concat(
+                        Seshat.VanillaDomain,
+                        type.Name.Substring(prefix.Length));
+
+                    try { Add(new CardAbilityInfo(id, type)); }
+                    // discard any argumentexception errors from bad types.
+                    catch (ArgumentException) { }
+                }
             }
         }
     }

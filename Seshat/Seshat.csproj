@@ -72,6 +72,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\CardAbilityInfo.cs" />
+    <Compile Include="API\DiceAbilityInfo.cs" />
     <Compile Include="API\Registrar\KeyPage.cs" />
     <Compile Include="API\Registrar\Localize\DiceAbility.cs" />
     <Compile Include="API\Registrar\DiceAbility.cs" />

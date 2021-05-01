@@ -26,8 +26,7 @@ namespace Seshat.API.Registrar.Localize
             if (id == 250522)
                 return Get(StringId.Concat(Seshat.VanillaDomain, "250522"));
 
-            PassiveXmlInfo passive =
-                Registrar.Passive.Get(id);
+            PassiveXmlInfo passive = Registrar.Passive.Get(id);
 
             if (passive?.GetId() != null)
                 return Get(passive.GetId());

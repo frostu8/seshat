@@ -103,6 +103,21 @@ namespace Seshat
         public void LocalizeCardAbilities(string bundlePath)
             => LocalizeCardAbilities(XmlFromBundle<BattleCardAbilityDescRoot>(bundlePath));
 
+        public void LocalizePassiveAbilities(PassiveDescRoot root)
+        {
+            foreach (var passive in root.descList)
+                LocalizeSinglePassiveAbility(passive);
+        }
+
+        public void LocalizeSinglePassiveAbility(PassiveDesc passive)
+        {
+            passive.SetId(StringId.HasDomainOr(passive.GetId(), module.Metadata.Domain));
+            Registrar.Localize.Passive.AddModded(passive);
+        }
+
+        public void LocalizePassiveAbilities(string bundlePath)
+            => LocalizePassiveAbilities(XmlFromBundle<PassiveDescRoot>(bundlePath));
+
         private T XmlFromBundle<T>(string path)
         {
             var xml = new XmlSerializer(typeof(T));
