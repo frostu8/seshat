@@ -26,7 +26,7 @@ class patch_GiftModel : GiftModel
 
             try
             {
-                PassiveAbilityBase ability = Seshat.API.Registrar.Passive.GetNew(passive);
+                PassiveAbilityBase ability = passive.Instantiate();
                 ability.name = GetName();
                 ability.desc = GiftDesc;
                 passives.Add(ability);

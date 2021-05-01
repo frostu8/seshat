@@ -25,7 +25,7 @@ class patch_BookModel : BookModel
 
             try
             {
-                passives.Add(Seshat.API.Registrar.Passive.GetNew(passive.passive));
+                passives.Add(passive.passive.Instantiate());
             }
             catch (Exception e)
             {
@@ -48,7 +48,7 @@ class patch_BookModel : BookModel
                 // if the passive does not exist already in the list
                 if (this._activatedAllPassives.All(p => p.originpassive?.id != passive.id))
                 {
-                    // ..set it
+                    // ..add it
                     this._activatedAllPassives.Add(new PassiveModel(passive.id, instanceId));
                 }
             }

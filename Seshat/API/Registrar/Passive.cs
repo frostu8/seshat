@@ -47,37 +47,6 @@ namespace Seshat.API.Registrar
             _passivesByNum.Add(passive.id, passive);
         }
 
-        public static PassiveAbilityBase GetNew(string id)
-            => GetNew(Get(id));
-        public static PassiveAbilityBase GetNew(int id)
-            => GetNew(Get(id));
-
-        public static PassiveAbilityBase GetNew(PassiveXmlInfo passive)
-        {
-            // if passive could not be found, then return null
-            if (passive == null)
-                return null;
-
-            PassiveAbilityBase passiveImplementor;
-            if (passive.GetImplementor() != null)
-            {
-                passiveImplementor =
-                    (PassiveAbilityBase)Activator.CreateInstance(passive.GetImplementor());
-            } 
-            else
-            {
-                // some passives are display-only
-                passiveImplementor = new PassiveAbilityBase();
-            }
-
-            passiveImplementor.name = Localize.Passive.Get(passive.GetId())?.name;
-            passiveImplementor.desc = Localize.Passive.Get(passive.GetId())?.desc;
-
-            passiveImplementor.rare = passive.rare;
-
-            return passiveImplementor;
-        }
-
         public static PassiveXmlInfo Get(string id)
             => _passives.Get(id);
         public static PassiveXmlInfo Get(int id)
