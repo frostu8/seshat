@@ -45,7 +45,10 @@ namespace Seshat.Module
             {
                 if (System.Attribute.IsDefined(type, typeof(DiceAbilityAttribute)))
                 {
-                    try { RegisterDiceAbility(type); }
+                    try { 
+                        RegisterDiceAbility(type); 
+                        Logger.Debug(Metadata.id, $"Loaded dice ability {type.FullName}.");
+                    }
                     catch (Exception e)
                     {
                         Logger.Error(Metadata.id, "Failed to register type " +
@@ -55,7 +58,10 @@ namespace Seshat.Module
                 }
                 if (System.Attribute.IsDefined(type, typeof(CardAbilityAttribute)))
                 {
-                    try { RegisterCardAbility(type); }
+                    try { 
+                        RegisterCardAbility(type); 
+                        Logger.Debug(Metadata.id, $"Loaded card ability {type.FullName}.");
+                    }
                     catch (Exception e)
                     {
                         Logger.Error(Metadata.id, "Failed to register type " +
@@ -65,7 +71,10 @@ namespace Seshat.Module
                 }
                 if (System.Attribute.IsDefined(type, typeof(PassiveAbilityAttribute)))
                 {
-                    try { RegisterPassiveAbility(type); }
+                    try { 
+                        RegisterPassiveAbility(type);
+                        Logger.Debug(Metadata.id, $"Loaded passive {type.FullName}.");
+                    }
                     catch (Exception e)
                     {
                         Logger.Error(Metadata.id, "Failed to register type " +
@@ -156,6 +165,8 @@ namespace Seshat.Module
                 return;
             }
 
+            // normalize id
+            info.SetId(StringId.HasDomainOr(info.GetId(), Metadata.Domain));
             Registrar.Passive.AddModded(info);
         }
     }
