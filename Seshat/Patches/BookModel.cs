@@ -37,7 +37,7 @@ class patch_BookModel : BookModel
         return passives;
     }
 
-    MonoModReplace]
+    [MonoModReplace]
     public new bool TryGainUniquePassive()
     {
         try
