@@ -12,7 +12,7 @@ public class BongBongProwessDice : DiceCardAbilityBase
 
     public override void OnSucceedAttack()
     {
-        if (count++ < 6)
+        if (count++ < 5)
             this.ActivateBonusAttackDice();
     }
 }
