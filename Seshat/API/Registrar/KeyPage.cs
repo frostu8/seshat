@@ -41,6 +41,12 @@ namespace Seshat.API.Registrar
         private static void NormalizePageReferences(BookXmlInfo book)
         {
             string domain = StringId.GetDomain(book.GetId());
+
+            // normalize ModPassive
+            ((patch_BookEquipEffect)book.EquipEffect).passiveModList =
+                book.EquipEffect.GetPassiveModList()
+                    .Select(s => StringId.HasDomainOr(s, domain))
+                    .ToList();
         }
     }
 }

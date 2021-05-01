@@ -14,6 +14,11 @@ class patch_BookEquipEffect : BookEquipEffect
 
 public static class BookEquipEffectExt
 {
+    public static List<string> GetPassiveModList(this BookEquipEffect equip)
+    {
+        return ((patch_BookEquipEffect)equip).passiveModList;
+    }
+
     /// <summary>
     /// Gets a resolved list of all of the passives this equip effect carries.
     /// 
@@ -34,7 +39,7 @@ public static class BookEquipEffectExt
                 else return p;
             })
             .Concat(
-                ((patch_BookEquipEffect)equip).passiveModList
+                equip.GetPassiveModList()
                     .Select((passiveId) => {
                         PassiveXmlInfo p = Registrar.Passive.Get(passiveId);
 
