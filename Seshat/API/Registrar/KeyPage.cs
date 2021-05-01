@@ -48,5 +48,14 @@ namespace Seshat.API.Registrar
                     .Select(s => StringId.HasDomainOr(s, domain))
                     .ToList();
         }
+
+        public static BookXmlInfo Get(int id)
+            => _pages.TryGetValue(id, out var card) ? card : null;
+        public static BookXmlInfo Get(string sid)
+            => _pagesBySid.Get(sid);
+        public static IEnumerable<BookXmlInfo> ByDomain(string domain)
+            => _pagesBySid.ByDomain(domain);
+        public static IEnumerable<BookXmlInfo> All()
+            => _pagesBySid.Values;
     }
 }

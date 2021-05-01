@@ -37,8 +37,26 @@ namespace Seshat
         public void CombatPages(string bundlePath)
             => CombatPages(XmlFromBundle<DiceCardXmlRoot>(bundlePath));
 
+        public void KeyPages(BookXmlRoot root)
+        {
+            foreach (var book in root.bookXmlList)
+                SingleKeyPage(book);
+        }
+
+        public void SingleKeyPage(BookXmlInfo book)
+        {
+            book.SetId(StringId.HasDomainOr(book.GetId(), module.Metadata.Domain));
+            Registrar.KeyPage.AddModded(book);
+        }
+
+        public void KeyPages(string bundlePath)
+            => KeyPages(XmlFromBundle<BookXmlRoot>(bundlePath));
+
         public DiceCardXmlInfo GetCombatPage(string sid)
             => Registrar.CombatPage.Get(StringId.Concat(module.Metadata.Domain, sid));
+
+        public BookXmlInfo GetKeyPage(string sid)
+            => Registrar.KeyPage.Get(StringId.Concat(module.Metadata.Domain, sid));
 
         public void LocalizeCombatPages(BattleCardDescRoot root)
         {

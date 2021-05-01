@@ -99,6 +99,7 @@
     <Compile Include="Patches\BattleDiceCardModel.cs" />
     <Compile Include="Patches\BookEquipEffect.cs" />
     <Compile Include="Patches\BookModel.cs" />
+    <Compile Include="Patches\BookXmlList.cs" />
     <Compile Include="Patches\EntryScene.cs" />
     <Compile Include="Patches\GiftModel.cs" />
     <Compile Include="Patches\GlobalGameManager.cs" />
